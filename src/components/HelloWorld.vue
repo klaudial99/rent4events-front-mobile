@@ -8,6 +8,7 @@
         >vue-cli documentation</a
       >.
     </p>
+    <font-awesome-icon :icon="['fas', 'phone']" />
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li>

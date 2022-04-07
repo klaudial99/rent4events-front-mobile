@@ -18,7 +18,11 @@
       </div>
 
       <div class="col-12 col-md-6 text-center">
-        <img src="@/assets/main-photo.png" alt="Main photo" id="main-photo" />
+        <img
+          src="@/assets/home_page/main-photo.png"
+          alt="Main photo"
+          id="main-photo"
+        />
       </div>
     </div>
   </div>
@@ -37,9 +41,5 @@ export default {
 
 #special-text {
   color: var(--PRIMARY);
-}
-
-#main-title {
-  font-weight: 700;
 }
 </style>

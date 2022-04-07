@@ -11,8 +11,8 @@ import VueNumber from "vue-number-animation";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-library.add(faBars);
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons/faArrowUp";
+library.add(faArrowUp);
 
 const app = createApp(App).use(router);
 

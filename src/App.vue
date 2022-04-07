@@ -75,4 +75,9 @@ export default {
   color: white;
   border: 1px solid var(--PRIMARY);
 }
+
+h1,
+h2 {
+  font-weight: 700;
+}
 </style>

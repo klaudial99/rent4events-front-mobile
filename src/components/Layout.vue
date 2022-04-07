@@ -3,13 +3,13 @@
     <navbar-guest />
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
-      <i class="fa fa-arrow-up" size="3x"></i>
+      <font-awesome-icon :icon="['fa', 'arrow-up']" />
     </button>
   </div>
 </template>
 
 <script>
-import NavbarGuest from "@/components/Navbars/NavbarGuest";
+import NavbarGuest from "@/components/navbars/NavbarGuest";
 export default {
   name: "Layout",
   components: {

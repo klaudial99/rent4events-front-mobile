@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <section id="main" class="py-5">
+      <main-info />
+    </section>
+    <section id="numbers" class="py-5">
+      <numbers />
+    </section>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import MainInfo from "@/components/HomePage/MainInfo";
+import Numbers from "@/components/HomePage/Numbers";
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    MainInfo,
+    Numbers,
   },
 };
 </script>
+
+<style scoped>
+#numbers {
+  background-color: var(--PRIMARY);
+  color: white;
+}
+</style>

@@ -1,20 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <layout>
+    <router-view />
+  </layout>
+  <!--  <div id="nav">-->
+  <!--    <router-link to="/">Home</router-link> |-->
+  <!--    <router-link to="/about">About</router-link>-->
+  <!--  </div>-->
+  <!--  <router-view />-->
 </template>
+
+<script>
+import Layout from "@/components/Layout";
+export default {
+  components: {
+    Layout,
+  },
+};
+</script>
 
 <style>
 @import "./assets/colors.css";
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
+  font-family: "source-sans-pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--BLACK);
 }
 
 #nav {
@@ -28,5 +44,35 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.btn-main {
+  background-color: var(--PRIMARY);
+  color: white;
+  border-radius: 0;
+  border: 1px solid var(--PRIMARY);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.btn-main:hover {
+  background-color: var(--PRIMARY-LIGHT);
+  color: white;
+  border: 1px solid var(--PRIMARY-LIGHT);
+}
+
+.btn-main-outline {
+  background-color: white;
+  color: var(--PRIMARY);
+  border-radius: 0;
+  border: 1px solid var(--PRIMARY);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.btn-main-outline:hover {
+  background-color: var(--PRIMARY);
+  color: white;
+  border: 1px solid var(--PRIMARY);
 }
 </style>

@@ -1,3 +1,9 @@
 :root {
-  --RANDOM: #76fa98;
+  /*--PRIMARY: #993366;*/
+  /*--PRIMARY-LIGHT: #c6538c;*/
+  --SECONDARY: #FFB140;
+  --BLACK: #1F2229;
+
+  --PRIMARY: #9F1997;
+  --PRIMARY-LIGHT: #D889F2;
 }

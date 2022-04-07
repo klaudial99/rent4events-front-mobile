@@ -10,7 +10,7 @@
       <div class="container mb-3 mb-md-5">
         <div class="row">
           <div class="col">
-            <h2>Od wymarzonej imprezy dzielą Cię tylko 3 prost kroki!</h2>
+            <h2>Od wymarzonej imprezy dzielą Cię tylko 3 proste kroki!</h2>
           </div>
         </div>
       </div>
@@ -22,6 +22,9 @@
         <step :step-source="step" class="py-3" />
       </div>
     </section>
+    <section id="about-us" class="py-5">
+      <about-us />
+    </section>
   </div>
 </template>
 
@@ -30,12 +33,14 @@
 import MainInfo from "@/components/home_page/MainInfo";
 import Numbers from "@/components/home_page/Numbers";
 import Step from "@/components/home_page/Step";
+import AboutUs from "@/components/home_page/AboutUs";
 export default {
   name: "Home",
   components: {
     MainInfo,
     Numbers,
     Step,
+    AboutUs,
   },
   data() {
     return {
@@ -80,5 +85,9 @@ export default {
     top: 0;
     transform: translateX(-50%);
   }
+}
+
+#about-us {
+  background-color: var(--GREY-LIGHT);
 }
 </style>

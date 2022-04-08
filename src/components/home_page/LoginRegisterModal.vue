@@ -1,0 +1,200 @@
+<template>
+  <div
+    class="modal fade"
+    id="loginRegisterModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body position-relative">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <ul
+                  class="nav nav-pills justify-content-around mb-3"
+                  id="pills-tab"
+                  role="tablist"
+                >
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      id="pills-login-tab"
+                      data-bs-toggle="pill"
+                      data-bs-target="#pills-login"
+                      type="button"
+                      role="tab"
+                      aria-controls="pills-home"
+                      aria-selected="true"
+                    >
+                      <span>Logowanie</span>
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      id="pills-register-tab"
+                      data-bs-toggle="pill"
+                      data-bs-target="#pills-register"
+                      type="button"
+                      role="tab"
+                      aria-controls="pills-register"
+                      aria-selected="false"
+                    >
+                      <span>Rejestracja</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col px-4">
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-login"
+                  role="tabpanel"
+                  aria-labelledby="pills-login-tab"
+                >
+                  <form>
+                    <div class="mb-3 text-start">
+                      <label for="emailInputLogin" class="form-label"
+                        >Adres email:</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="emailInputLogin"
+                        aria-describedby="emailHelp"
+                      />
+                    </div>
+                    <div class="mb-3 text-start">
+                      <label for="passwordInputLogin" class="form-label"
+                        >Hasło:</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="passwordInputLogin"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-main">
+                      Zaloguj się
+                    </button>
+                  </form>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-register"
+                  role="tabpanel"
+                  aria-labelledby="pills-register-tab"
+                >
+                  <form>
+                    <div class="mb-3 text-start">
+                      <label for="emailInputRegister" class="form-label"
+                        >Adres email:</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="emailInputRegister"
+                        aria-describedby="emailHelp"
+                      />
+                    </div>
+                    <div class="mb-3 text-start">
+                      <label for="passwordInputRegister1" class="form-label"
+                        >Hasło:</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="passwordInputRegister1"
+                      />
+                    </div>
+                    <div class="mb-3 text-start">
+                      <label for="passwordInputRegister2" class="form-label"
+                        >Powtórz hasło:</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="passwordInputRegister2"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-main">
+                      Zarejestruj się
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "LoginRegisterModal",
+};
+</script>
+
+<style scoped>
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.btn-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.nav-link {
+  color: var(--BLACK);
+  transition: all 0.4s ease-in-out;
+  font-size: 20px;
+  transform: scale(0.8);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--PRIMARY);
+  transform: scale(1);
+  font-weight: 600;
+}
+
+.nav-link.active,
+.nav-item.show .nav-link {
+  color: var(--PRIMARY);
+  background: none;
+  transform: scale(1.1);
+  font-weight: 600;
+}
+
+.form-control:hover,
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--SECONDARY);
+}
+
+.modal,
+.modal * {
+  transition: all 0.3s ease;
+}
+</style>

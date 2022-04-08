@@ -10,7 +10,11 @@
               ale brakuje Ci <span id="special-text">inspiracji</span>?
             </h1>
             <p class="py-3">U nas na pewno znajdziesz to, czego szukasz.</p>
-            <button class="btn btn-main d-block my-3 mx-auto mx-md-0">
+            <button
+              class="btn btn-main d-block my-3 mx-auto mx-md-0"
+              data-bs-toggle="modal"
+              data-bs-target="#loginRegisterModal"
+            >
               Dołącz do nas!
             </button>
           </div>
@@ -25,12 +29,15 @@
         />
       </div>
     </div>
+    <login-register-modal />
   </div>
 </template>
 
 <script>
+import LoginRegisterModal from "@/components/home_page/LoginRegisterModal";
 export default {
   name: "MainInfo",
+  components: { LoginRegisterModal },
 };
 </script>
 

@@ -16,10 +16,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Zaloguj się</a>
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#loginRegisterModal"
+              >Zaloguj się</a
+            >
           </li>
           <li class="nav-item">
-            <button class="btn btn-main-outline" type="submit">
+            <button
+              class="btn btn-main-outline"
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#loginRegisterModal"
+            >
               Dołącz do nas!
             </button>
           </li>

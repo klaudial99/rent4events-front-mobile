@@ -55,10 +55,12 @@ export default {
   font-size: 1rem;
 }
 
-.btn-main:hover {
+.btn-main:hover,
+.btn-main:focus {
   background-color: var(--PRIMARY-DARKER);
   color: white;
   border: 1px solid var(--PRIMARY-DARKER);
+  box-shadow: none;
 }
 
 .btn-main-outline {
@@ -70,10 +72,12 @@ export default {
   font-size: 1rem;
 }
 
-.btn-main-outline:hover {
+.btn-main-outline:hover,
+.btn-main-outline:focus {
   background-color: var(--PRIMARY-DARKER);
   color: white;
   border: 1px solid var(--PRIMARY-DARKER);
+  box-shadow: none;
 }
 
 h1,

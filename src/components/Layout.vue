@@ -5,15 +5,20 @@
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />
     </button>
+    <div id="footer">
+      <site-footer class="py-5" />
+    </div>
   </div>
 </template>
 
 <script>
 import NavbarGuest from "@/components/navbars/NavbarGuest";
+import SiteFooter from "@/components/SiteFooter";
 export default {
   name: "Layout",
   components: {
     NavbarGuest,
+    SiteFooter,
   },
   methods: {
     handleScroll() {
@@ -52,5 +57,9 @@ export default {
 .show-btn {
   opacity: 0.75;
   transform: translateY(0);
+}
+
+#footer {
+  background-color: var(--PRIMARY);
 }
 </style>

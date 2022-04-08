@@ -22,6 +22,17 @@ library.add(faTruck);
 library.add(faPeopleGroup);
 library.add(faBoxesPacking);
 
+import {
+  faFacebook,
+  faInstagram,
+  faTiktok,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+library.add(faFacebook);
+library.add(faInstagram);
+library.add(faTiktok);
+library.add(faYoutube);
+
 const app = createApp(App).use(router);
 
 app.config.globalProperties.apiURL = "http://localhost:8090/";

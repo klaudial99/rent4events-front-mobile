@@ -5,7 +5,7 @@
         <h2>Dlaczego my?</h2>
       </div>
     </div>
-    <div class="row justify-content-center gy-5">
+    <div class="row justify-content-center justify-content-md-around gy-5">
       <div class="col-12 col-sm-8 col-md-4 col-xl-3">
         <font-awesome-icon
           :icon="['fa', 'people-group']"

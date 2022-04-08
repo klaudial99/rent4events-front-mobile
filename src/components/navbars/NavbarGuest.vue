@@ -77,7 +77,11 @@ export default {
 }
 
 .navbar-brand {
-  background: -webkit-linear-gradient(0deg, #9f1997 0%, #d889f2 100%);
+  background: -webkit-linear-gradient(
+    0deg,
+    var(--PRIMARY) 0%,
+    var(--PRIMARY-LIGHTER) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;

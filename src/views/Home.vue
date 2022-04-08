@@ -79,7 +79,7 @@ export default {
   .steps::after {
     content: "";
     position: absolute;
-    border: 1px dashed var(--PRIMARY-LIGHT);
+    border: 1px dashed var(--PRIMARY-DARKER);
     height: 100%;
     left: 50%;
     top: 0;

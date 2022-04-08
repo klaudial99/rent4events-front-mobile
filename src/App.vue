@@ -56,9 +56,9 @@ export default {
 }
 
 .btn-main:hover {
-  background-color: var(--PRIMARY-LIGHT);
+  background-color: var(--PRIMARY-DARKER);
   color: white;
-  border: 1px solid var(--PRIMARY-LIGHT);
+  border: 1px solid var(--PRIMARY-DARKER);
 }
 
 .btn-main-outline {
@@ -71,9 +71,9 @@ export default {
 }
 
 .btn-main-outline:hover {
-  background-color: var(--PRIMARY);
+  background-color: var(--PRIMARY-DARKER);
   color: white;
-  border: 1px solid var(--PRIMARY);
+  border: 1px solid var(--PRIMARY-DARKER);
 }
 
 h1,

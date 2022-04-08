@@ -60,6 +60,6 @@ export default {
 }
 
 #footer {
-  background-color: var(--PRIMARY);
+  background-color: var(--SECONDARY);
 }
 </style>

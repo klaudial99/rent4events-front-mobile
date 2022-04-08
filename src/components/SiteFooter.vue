@@ -97,6 +97,6 @@ li a {
 
 li a:hover,
 .social-icon:hover {
-  color: var(--PRIMARY-LIGHT);
+  color: var(--PRIMARY-LIGHTER);
 }
 </style>

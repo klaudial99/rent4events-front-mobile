@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <section id="main" class="py-5">
+    <section id="main" class="py-4">
       <main-info />
     </section>
     <section id="numbers" class="py-5">
@@ -48,19 +48,19 @@ export default {
         {
           stepId: 1,
           title: "Wybierz asortyment",
-          text: "Posiadamy szeroki asortyment, na pewno znajdziesz coś, co Cię zainteresuje.",
+          text: "Posiadamy szeroki asortyment. Na pewno znajdziesz coś, co Cię zainteresuje.",
           pictureSource: "step-1.svg",
         },
         {
           stepId: 2,
           title: "Złóż zapytanie",
-          text: "Powiedz gdzie i kiedy chcesz zrealizować swoje zamówienie i wyślij zapytanie.",
+          text: "Powiedz gdzie oraz kiedy chcesz zrealizować swoje zamówienie i wyślij zapytanie.",
           pictureSource: "step-2.svg",
         },
         {
           stepId: 3,
-          title: "Czekaj na odpowiedź",
-          text: "Nasz zespoł stara się odpowiadać jak najszybciej na zamówienia naszych Klientów, niedługo się odezwiemy!",
+          title: "Poczekaj na odpowiedź",
+          text: "Nasz zespoł stara się odpowiadać jak najszybciej na zamówienia naszych Klientów Niedługo się odezwiemy!",
           pictureSource: "step-3.svg",
         },
       ],

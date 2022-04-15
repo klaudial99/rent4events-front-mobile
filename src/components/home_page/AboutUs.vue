@@ -14,7 +14,7 @@
         />
         <h5>Wykwalifikowani pracownicy</h5>
         <span>
-          Tworzymy doświadoczony zespół, który z chęcią doradzi i odpowie na
+          Tworzymy doświadoczony zespół, który chętnie doradzi i odpowie na
           wszystkie Twoje pytania.
         </span>
       </div>
@@ -27,7 +27,7 @@
         <h5>Wysokiej jakości sprzęt</h5>
         <span>
           Zależy nam na jakości oferowanego asortymentu. Dodatkowo nieustannie
-          dbamy aby jak najdłużej pozostał w jak najlepszym stanie.
+          dbamy, aby jak najdłużej pozostał w jak najlepszym stanie.
         </span>
       </div>
       <div class="col-12 col-sm-8 col-md-4 col-xl-3">
@@ -38,7 +38,7 @@
         />
         <h5>Profejsonalny transport</h5>
         <span>
-          Dokładamy wszelkich starań aby nasza flota pojazdów była zawsze w
+          Dokładamy wszelkich starań, aby nasza flota pojazdów była zawsze w
           idealnym stanie.
         </span>
       </div>

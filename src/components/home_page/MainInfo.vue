@@ -9,7 +9,7 @@
               <br />
               ale brakuje Ci <span id="special-text">inspiracji</span>?
             </h1>
-            <p class="py-3">U nas na pewno znajdziesz to, czego szukasz.</p>
+            <h5 class="py-3">U nas na pewno znajdziesz to, czego szukasz.</h5>
             <button
               class="btn btn-main d-block my-3 mx-auto mx-md-0"
               data-bs-toggle="modal"
@@ -48,5 +48,9 @@ export default {
 
 #special-text {
   color: var(--PRIMARY);
+}
+
+h5 {
+  font-weight: 400;
 }
 </style>

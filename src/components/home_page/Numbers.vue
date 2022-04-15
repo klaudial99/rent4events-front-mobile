@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row gy-5">
       <div class="col-6 col-md-3">
-        <h3>
+        <h1 class="number">
           +<number
             ref="number1"
             :from="1"
@@ -11,11 +11,11 @@
             :duration="2"
             easing="Power1.easeOut"
           />
-        </h3>
-        <span>ekspertów</span>
+        </h1>
+        <h6>ekspertów</h6>
       </div>
       <div class="col-6 col-md-3">
-        <h3>
+        <h1 class="number">
           +<number
             ref="number2"
             :from="1"
@@ -24,12 +24,12 @@
             :duration="2"
             easing="Power2.easeOut"
           />
-        </h3>
-        <span>zadowlonych klientów</span>
+        </h1>
+        <h6>zadowolonych klientów</h6>
       </div>
 
       <div class="col-6 col-md-3">
-        <h3>
+        <h1 class="number">
           <number
             ref="number3"
             :from="1"
@@ -38,11 +38,11 @@
             :duration="2"
             easing="Power1.easeOut"
           />
-        </h3>
-        <span>lat na rynku</span>
+        </h1>
+        <h6>lat na rynku</h6>
       </div>
       <div class="col-6 col-md-3">
-        <h3>
+        <h1 class="number">
           +<number
             ref="number4"
             :from="1"
@@ -51,8 +51,8 @@
             :duration="2"
             easing="Power2.easeOut"
           />
-        </h3>
-        <span>artykułów</span>
+        </h1>
+        <h6>artykułów</h6>
       </div>
     </div>
   </div>
@@ -69,4 +69,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.number {
+  font-weight: 500;
+}
+</style>

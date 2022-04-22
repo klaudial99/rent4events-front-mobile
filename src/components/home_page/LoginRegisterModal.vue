@@ -25,7 +25,11 @@
                 >
                   <li class="nav-item" role="presentation">
                     <button
-                      class="nav-link active"
+                      class="nav-link"
+                      :class="{
+                        active: this.$store.getters.getActiveTab === 'login',
+                      }"
+                      @click="this.$store.commit('setActiveTab', 'login')"
                       id="pills-login-tab"
                       data-bs-toggle="pill"
                       data-bs-target="#pills-login"
@@ -40,6 +44,10 @@
                   <li class="nav-item" role="presentation">
                     <button
                       class="nav-link"
+                      :class="{
+                        active: this.$store.getters.getActiveTab === 'register',
+                      }"
+                      @click="this.$store.commit('setActiveTab', 'register')"
                       id="pills-register-tab"
                       data-bs-toggle="pill"
                       data-bs-target="#pills-register"
@@ -59,7 +67,11 @@
             <div class="col px-4">
               <div class="tab-content" id="pills-tabContent">
                 <div
-                  class="tab-pane fade show active"
+                  class="tab-pane fade"
+                  :class="{
+                    active: this.$store.getters.getActiveTab === 'login',
+                    show: this.$store.getters.getActiveTab === 'login',
+                  }"
                   id="pills-login"
                   role="tabpanel"
                   aria-labelledby="pills-login-tab"
@@ -93,6 +105,10 @@
                 </div>
                 <div
                   class="tab-pane fade"
+                  :class="{
+                    active: this.$store.getters.getActiveTab === 'register',
+                    show: this.$store.getters.getActiveTab === 'register',
+                  }"
                   id="pills-register"
                   role="tabpanel"
                   aria-labelledby="pills-register-tab"

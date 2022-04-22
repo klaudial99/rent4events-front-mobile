@@ -14,6 +14,7 @@
               class="btn btn-main d-block my-3 mx-auto mx-md-0"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
+              @click="this.$store.commit('setActiveTab', 'register')"
             >
               Dołącz do nas!
             </button>

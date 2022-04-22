@@ -21,6 +21,7 @@
               href="#"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
+              @click="this.$store.commit('setActiveTab', 'login')"
               >Zaloguj się</a
             >
           </li>
@@ -30,6 +31,7 @@
               type="submit"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
+              @click="this.$store.commit('setActiveTab', 'register')"
             >
               Dołącz do nas!
             </button>

@@ -9,6 +9,8 @@
         aria-describedby="emailHelp"
         v-model="loginEmail"
         :class="{ 'error-input': v$.loginEmail.$error }"
+        @focus="clearStatus"
+        @keypress="clearStatus"
       />
       <div
         v-for="error of v$.loginEmail.$errors"
@@ -27,6 +29,8 @@
         id="passwordInputLogin"
         v-model="loginPassword"
         :class="{ 'error-input': v$.loginPassword.$error }"
+        @focus="clearStatus"
+        @keypress="clearStatus"
       />
       <div
         v-for="error of v$.loginPassword.$errors"
@@ -34,6 +38,9 @@
         class="text-start"
       >
         <span class="error-msg">{{ error.$message }}</span>
+      </div>
+      <div class="text-start mt-2" v-if="wrongData">
+        <span class="error-msg">Niepoprawny adres email i/lub hasło.</span>
       </div>
     </div>
     <button type="submit" class="btn btn-main">Zaloguj się</button>
@@ -52,6 +59,7 @@ export default {
     return {
       loginEmail: "",
       loginPassword: "",
+      wrongData: false,
     };
   },
   validations() {
@@ -75,8 +83,9 @@ export default {
       const url = `${this.apiURL}Users/authenticate`;
 
       const isFormCorrect = await this.v$.$validate();
-
       if (!isFormCorrect) return;
+
+      this.clearStatus();
 
       this.axios
         .post(url, data)
@@ -89,8 +98,11 @@ export default {
           this.$store.commit("setRefreshToken", response.data.refreshToken);
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response.status === 400) this.wrongData = true;
         });
+    },
+    clearStatus() {
+      this.wrongData = false;
     },
   },
 };

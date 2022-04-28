@@ -84,4 +84,20 @@ h1,
 h2 {
   font-weight: 700;
 }
+
+.form-control:hover,
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--SECONDARY);
+}
+
+.error-msg {
+  color: red;
+}
+
+.error-input,
+.error-input:focus,
+.error-input:hover {
+  border-color: red;
+}
 </style>

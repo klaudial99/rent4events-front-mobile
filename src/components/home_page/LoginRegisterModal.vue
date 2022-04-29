@@ -76,32 +76,7 @@
                   role="tabpanel"
                   aria-labelledby="pills-login-tab"
                 >
-                  <form>
-                    <div class="mb-3 text-start">
-                      <label for="emailInputLogin" class="form-label"
-                        >Adres email:</label
-                      >
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="emailInputLogin"
-                        aria-describedby="emailHelp"
-                      />
-                    </div>
-                    <div class="mb-3 text-start">
-                      <label for="passwordInputLogin" class="form-label"
-                        >Hasło:</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="passwordInputLogin"
-                      />
-                    </div>
-                    <button type="submit" class="btn btn-main">
-                      Zaloguj się
-                    </button>
-                  </form>
+                  <login-form />
                 </div>
                 <div
                   class="tab-pane fade"
@@ -113,42 +88,7 @@
                   role="tabpanel"
                   aria-labelledby="pills-register-tab"
                 >
-                  <form>
-                    <div class="mb-3 text-start">
-                      <label for="emailInputRegister" class="form-label"
-                        >Adres email:</label
-                      >
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="emailInputRegister"
-                        aria-describedby="emailHelp"
-                      />
-                    </div>
-                    <div class="mb-3 text-start">
-                      <label for="passwordInputRegister1" class="form-label"
-                        >Hasło:</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="passwordInputRegister1"
-                      />
-                    </div>
-                    <div class="mb-3 text-start">
-                      <label for="passwordInputRegister2" class="form-label"
-                        >Powtórz hasło:</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="passwordInputRegister2"
-                      />
-                    </div>
-                    <button type="submit" class="btn btn-main">
-                      Zarejestruj się
-                    </button>
-                  </form>
+                  <register-form />
                 </div>
               </div>
             </div>
@@ -160,8 +100,15 @@
 </template>
 
 <script>
+import LoginForm from "@/components/home_page/LoginForm";
+import RegisterForm from "@/components/home_page/RegisterForm";
+
 export default {
   name: "LoginRegisterModal",
+  components: {
+    LoginForm,
+    RegisterForm,
+  },
 };
 </script>
 
@@ -201,12 +148,6 @@ export default {
   background: none;
   transform: scale(1.1);
   font-weight: 600;
-}
-
-.form-control:hover,
-.form-control:focus {
-  box-shadow: none;
-  border-color: var(--SECONDARY);
 }
 
 .modal,

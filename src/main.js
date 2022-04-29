@@ -35,7 +35,7 @@ library.add(faYoutube);
 
 const app = createApp(App).use(router);
 
-app.config.globalProperties.apiURL = "https://localhost:44365/";
+app.config.globalProperties.apiURL = process.env.VUE_APP_BASE_URI;
 
 app.use(store);
 app.use(VueAxios, axios);

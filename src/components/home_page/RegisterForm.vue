@@ -132,7 +132,7 @@ export default {
         phone_no: "",
       };
 
-      const url = `${this.apiURL}Api/Account/register`;
+      const url = `${this.apiURL}api/Account/register`;
 
       const isFormCorrect = await this.v$.$validate();
 

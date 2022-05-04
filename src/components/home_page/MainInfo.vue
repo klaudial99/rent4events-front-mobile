@@ -11,12 +11,17 @@
             </h1>
             <h5 class="py-3">U nas na pewno znajdziesz to, czego szukasz.</h5>
             <button
-              class="btn btn-main d-block my-3 mx-auto mx-md-0"
+              class="btn join-us-btn d-block my-3 mx-auto mx-md-0 p-0"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
               @click="this.$store.commit('setActiveTab', 'register')"
             >
-              Dołącz do nas!
+              <span class="join-us-text">Dołącz do nas!</span>
+              <font-awesome-icon
+                :icon="['fa', 'arrow-right']"
+                size="sm"
+                class="join-us-icon ms-2"
+              />
             </button>
           </div>
         </div>
@@ -53,5 +58,24 @@ export default {
 
 h5 {
   font-weight: 400;
+}
+
+.join-us-text {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.join-us-icon {
+  color: var(--PRIMARY);
+}
+
+.join-us-btn:hover .join-us-icon {
+  transform: translate(5px, 0);
+  transition: all 0.4s ease;
+}
+
+.join-us-btn:hover,
+.join-us-btn:focus {
+  box-shadow: none;
 }
 </style>

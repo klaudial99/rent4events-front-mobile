@@ -16,11 +16,13 @@ import {
   faTruck,
   faPeopleGroup,
   faBoxesPacking,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowUp);
 library.add(faTruck);
 library.add(faPeopleGroup);
 library.add(faBoxesPacking);
+library.add(faArrowRight);
 
 import {
   faFacebook,

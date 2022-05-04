@@ -49,8 +49,9 @@ export default {
 .btn-main {
   background-color: var(--PRIMARY);
   color: white;
-  border-radius: 0;
-  border: 1px solid var(--PRIMARY);
+  border-radius: 10px;
+  font-weight: 500;
+  border: 2px solid var(--PRIMARY);
   padding: 0.5rem 1rem;
   font-size: 1rem;
 }
@@ -59,15 +60,16 @@ export default {
 .btn-main:focus {
   background-color: var(--PRIMARY-DARKER);
   color: white;
-  border: 1px solid var(--PRIMARY-DARKER);
+  border: 2px solid var(--PRIMARY-DARKER);
   box-shadow: none;
 }
 
 .btn-main-outline {
   background-color: white;
   color: var(--PRIMARY);
-  border-radius: 0;
-  border: 1px solid var(--PRIMARY);
+  border-radius: 10px;
+  font-weight: 500;
+  border: 2px solid var(--PRIMARY);
   padding: 0.5rem 1rem;
   font-size: 1rem;
 }
@@ -76,7 +78,7 @@ export default {
 .btn-main-outline:focus {
   background-color: var(--PRIMARY-DARKER);
   color: white;
-  border: 1px solid var(--PRIMARY-DARKER);
+  border: 2px solid var(--PRIMARY-DARKER);
   box-shadow: none;
 }
 
@@ -99,5 +101,9 @@ h2 {
 .error-input:focus,
 .error-input:hover {
   border-color: red;
+}
+
+.clickable {
+  cursor: pointer;
 }
 </style>

@@ -3,6 +3,7 @@
     <div class="mb-3 text-start">
       <label for="emailInputLogin" class="form-label">Adres email:</label>
       <input
+        @blur="v$.loginEmail.$touch"
         type="email"
         class="form-control"
         id="emailInputLogin"
@@ -15,7 +16,7 @@
       <div
         v-for="error of v$.loginEmail.$errors"
         :key="error.$uid"
-        class="text-start"
+        class="text-start mx-1"
       >
         <span class="error-msg">{{ error.$message }}</span>
       </div>
@@ -24,6 +25,7 @@
     <div class="mb-3 text-start">
       <label for="passwordInputLogin" class="form-label">Hasło:</label>
       <input
+        @blur="v$.loginPassword.$touch"
         type="password"
         class="form-control"
         id="passwordInputLogin"
@@ -35,7 +37,7 @@
       <div
         v-for="error of v$.loginPassword.$errors"
         :key="error.$uid"
-        class="text-start"
+        class="text-start mx-1"
       >
         <span class="error-msg">{{ error.$message }}</span>
       </div>
@@ -53,7 +55,7 @@ import { required, email, helpers } from "@vuelidate/validators";
 export default {
   name: "LoginForm",
   setup() {
-    return { v$: useVuelidate({ $autoDirty: true }) };
+    return { v$: useVuelidate() };
   },
   data() {
     return {

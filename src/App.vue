@@ -95,6 +95,7 @@ h2 {
 
 .error-msg {
   color: red;
+  font-size: 14px;
 }
 
 .error-input,

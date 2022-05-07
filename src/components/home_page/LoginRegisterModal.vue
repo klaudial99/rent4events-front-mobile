@@ -10,6 +10,7 @@
       <div class="modal-content">
         <div class="modal-body position-relative">
           <button
+            id="loginRegisterModalClose"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"

@@ -8,7 +8,7 @@ export default createStore({
     lastName: "",
     token: "",
     refreshToken: "",
-    role: "",
+    role: "guest",
   },
   mutations: {
     setActiveTab(state, value) {

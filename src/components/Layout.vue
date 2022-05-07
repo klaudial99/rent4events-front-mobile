@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <navbar-guest />
-    <!--    <navbar-client />-->
-    <!--    <navbar-driver />-->
-    <!--    <navbar-manager />-->
+    <navbar-guest v-if="this.$store.getters.getRole === 'guest'" />
+    <navbar-client v-else-if="this.$store.getters.getRole === 'client'" />
+    <navbar-driver v-else-if="this.$store.getters.getRole === 'driver'" />
+    <navbar-manager v-else-if="this.$store.getters.getRole === 'manager'" />
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />
@@ -16,17 +16,17 @@
 
 <script>
 import NavbarGuest from "@/components/navbars/NavbarGuest";
-// import NavbarDriver from "@/components/navbars/NavbarDriver";
-// import NavbarManager from "@/components/navbars/NavbarManager";
-// import NavbarClient from "@/components/navbars/NavbarClient";
+import NavbarDriver from "@/components/navbars/NavbarDriver";
+import NavbarManager from "@/components/navbars/NavbarManager";
+import NavbarClient from "@/components/navbars/NavbarClient";
 import SiteFooter from "@/components/SiteFooter";
 export default {
   name: "Layout",
   components: {
     NavbarGuest,
-    // NavbarClient,
-    // NavbarManager,
-    // NavbarDriver,
+    NavbarClient,
+    NavbarManager,
+    NavbarDriver,
     SiteFooter,
   },
   methods: {

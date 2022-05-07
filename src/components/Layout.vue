@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
-    <!--    <navbar-guest />-->
-    <navbar-client />
+    <navbar-guest />
+    <!--    <navbar-client />-->
+    <!--    <navbar-driver />-->
+    <!--    <navbar-manager />-->
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />
@@ -13,14 +15,18 @@
 </template>
 
 <script>
-// import NavbarGuest from "@/components/navbars/NavbarGuest";
+import NavbarGuest from "@/components/navbars/NavbarGuest";
+// import NavbarDriver from "@/components/navbars/NavbarDriver";
+// import NavbarManager from "@/components/navbars/NavbarManager";
+// import NavbarClient from "@/components/navbars/NavbarClient";
 import SiteFooter from "@/components/SiteFooter";
-import NavbarClient from "@/components/navbars/NavbarClient";
 export default {
   name: "Layout",
   components: {
-    // NavbarGuest,
-    NavbarClient,
+    NavbarGuest,
+    // NavbarClient,
+    // NavbarManager,
+    // NavbarDriver,
     SiteFooter,
   },
   methods: {

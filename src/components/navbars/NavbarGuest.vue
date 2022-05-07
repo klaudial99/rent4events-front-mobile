@@ -52,4 +52,8 @@ export default {
 .nav-item {
   text-align: right !important;
 }
+
+.nav-link:not(.active):hover {
+  background: none;
+}
 </style>

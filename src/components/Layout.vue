@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
-    <navbar-guest />
+    <!--    <navbar-guest />-->
+    <navbar-client />
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />
@@ -12,12 +13,14 @@
 </template>
 
 <script>
-import NavbarGuest from "@/components/navbars/NavbarGuest";
+// import NavbarGuest from "@/components/navbars/NavbarGuest";
 import SiteFooter from "@/components/SiteFooter";
+import NavbarClient from "@/components/navbars/NavbarClient";
 export default {
   name: "Layout",
   components: {
-    NavbarGuest,
+    // NavbarGuest,
+    NavbarClient,
     SiteFooter,
   },
   methods: {
@@ -29,8 +32,19 @@ export default {
     scrollTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
+    shadowOnScroll() {
+      window.onscroll = () => {
+        const nav = document.querySelector(".navbar");
+        if (window.scrollY > 0) {
+          nav.classList.add("add-shadow");
+        } else {
+          nav.classList.remove("add-shadow");
+        }
+      };
+    },
   },
   mounted() {
+    this.shadowOnScroll();
     document.addEventListener("scroll", this.handleScroll);
   },
 };

@@ -107,4 +107,59 @@ h2 {
 .clickable {
   cursor: pointer;
 }
+/*navbars*/
+@media (min-width: 1px) and (max-width: 576px) {
+  .navbar {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+router-link {
+  color: var(--BLACK) !important;
+}
+
+.add-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.navbar-brand {
+  background: -webkit-linear-gradient(
+    0deg,
+    var(--PRIMARY) 0%,
+    var(--PRIMARY-LIGHTER) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.nav-item {
+  text-align: left;
+}
+
+.nav-link.active {
+  width: fit-content;
+}
+
+.nav-link:not(.active):hover {
+  background-color: var(--GREY-LIGHT);
+  border-radius: 10px;
+}
+
+.nav-link.active:after {
+  display: block;
+  border-bottom: 2px solid var(--PRIMARY);
+  content: "";
+  width: 80%;
+  align-self: start;
+}
 </style>

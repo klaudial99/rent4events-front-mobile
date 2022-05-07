@@ -269,8 +269,4 @@ export default {
 .highlight {
   color: red;
 }
-
-.form-label {
-  font-weight: 500;
-}
 </style>

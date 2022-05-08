@@ -16,28 +16,68 @@
       <div class="collapse navbar-collapse" id="navbarDriverContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item pe-3">
-            <router-link class="nav-link active" to="">HOME</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Dashboard' }"
+              :to="{ name: 'Dashboard' }"
+              >HOME</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">OFERTA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Offer' }"
+              to=""
+              >OFERTA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">ZAMÓWIENIA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Orders' }"
+              to=""
+              >ZAMÓWIENIA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">KADRA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Drivers' }"
+              to=""
+              >KADRA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">POJAZDY</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Vehicles' }"
+              to=""
+              >POJAZDY</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">KURSY</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Courses' }"
+              to=""
+              >KURSY</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">ASORTYMENT</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Products' }"
+              to=""
+              >ASORTYMENT</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">RAPORTY</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Reports' }"
+              to=""
+              >RAPORTY</router-link
+            >
           </li>
         </ul>
       </div>

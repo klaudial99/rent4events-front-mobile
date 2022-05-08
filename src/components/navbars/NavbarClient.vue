@@ -16,13 +16,28 @@
       <div class="collapse navbar-collapse" id="navbarClientContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item pe-3">
-            <router-link class="nav-link active" to="">HOME</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Dashboard' }"
+              :to="{ name: 'Dashboard' }"
+              >HOME</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">OFERTA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Offer' }"
+              to=""
+              >OFERTA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">ZAMÓWIENIA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Orders' }"
+              to=""
+              >ZAMÓWIENIA</router-link
+            >
           </li>
         </ul>
       </div>

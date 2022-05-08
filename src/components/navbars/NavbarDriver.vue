@@ -16,22 +16,52 @@
       <div class="collapse navbar-collapse" id="navbarDriverContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item pe-3">
-            <router-link class="nav-link active" to="">HOME</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Dashboard' }"
+              :to="{ name: 'Dashboard' }"
+              >HOME</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">OFERTA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Offer' }"
+              to=""
+              >OFERTA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">ZAMÓWIENIA</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Orders' }"
+              to=""
+              >ZAMÓWIENIA</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">POJAZDY</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Vehicles' }"
+              to=""
+              >POJAZDY</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">MOJE KURSY</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'Courses' }"
+              to=""
+              >MOJE KURSY</router-link
+            >
           </li>
           <li class="nav-item pe-3">
-            <router-link class="nav-link" to="">AKTUALNY KURS</router-link>
+            <router-link
+              class="nav-link"
+              :class="{ active: this.$route.name === 'CurrentCourse' }"
+              to=""
+              >AKTUALNY KURS</router-link
+            >
           </li>
         </ul>
       </div>

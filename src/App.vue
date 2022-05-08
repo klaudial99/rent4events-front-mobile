@@ -2,11 +2,6 @@
   <layout>
     <router-view />
   </layout>
-  <!--  <div id="nav">-->
-  <!--    <router-link to="/">Home</router-link> |-->
-  <!--    <router-link to="/about">About</router-link>-->
-  <!--  </div>-->
-  <!--  <router-view />-->
 </template>
 
 <script>
@@ -163,6 +158,7 @@ router-link {
   align-self: start;
 }
 
+/*MODAL*/
 .modal-content {
   border-radius: 0;
   border: none;
@@ -172,5 +168,38 @@ router-link {
   position: absolute;
   right: 1rem;
   top: 1rem;
+}
+
+/*NAVBAR - FIRST NAME BUTTON*/
+.first-letter {
+  border: 2px solid var(--PRIMARY);
+  border-radius: 50%;
+  /*color: var(--PRIMARY);*/
+}
+
+.first-letter:hover,
+.first-letter:focus {
+  box-shadow: none;
+  color: white;
+  background-color: var(--PRIMARY);
+}
+
+.dropdown-menu {
+  /*border-radius: 0;*/
+  padding: 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border: none;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--GREY-LIGHT);
 }
 </style>

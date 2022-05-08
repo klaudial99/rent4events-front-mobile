@@ -63,6 +63,32 @@
               >AKTUALNY KURS</router-link
             >
           </li>
+          <li class="nav-item pe-3">
+            <div class="dropdown">
+              <button
+                class="btn first-letter"
+                type="button"
+                id="dropdownMenuAccount"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span class="">{{
+                  this.$store.getters.getFirstName.charAt(0)
+                }}</span>
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="dropdownMenuAccount"
+              >
+                <li><a class="dropdown-item" href="#">Ustawienia</a></li>
+                <li>
+                  <a @click="logout" class="dropdown-item" href="#"
+                    >Wyloguj się</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -72,6 +98,21 @@
 <script>
 export default {
   name: "NavbarDriver",
+  methods: {
+    logout() {
+      const url = `${this.apiURL}api/Account/LogOff`;
+      this.axios
+        .post(url)
+        .then(() => {
+          this.$store.replaceState({});
+          this.$store.commit("setRole", "guest");
+          this.$router.push({ name: "Home" });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

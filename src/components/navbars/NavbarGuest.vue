@@ -21,7 +21,10 @@
               href="#"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
-              @click="this.$store.commit('setActiveTab', 'login')"
+              @click="
+                this.$store.commit('setActiveTab', 'login');
+                this.$store.commit('setShowAfterRegisterModal', false);
+              "
               >Zaloguj się</a
             >
           </li>
@@ -31,7 +34,10 @@
               type="submit"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
-              @click="this.$store.commit('setActiveTab', 'register')"
+              @click="
+                this.$store.commit('setActiveTab', 'register');
+                this.$store.commit('setShowAfterRegisterModal', false);
+              "
             >
               Dołącz do nas!
             </button>
@@ -53,7 +59,7 @@ export default {
   text-align: right !important;
 }
 
-.nav-link:not(.active):hover {
+.navbar-nav .nav-link:not(.active):hover {
   background: none;
 }
 </style>

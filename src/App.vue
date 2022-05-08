@@ -142,24 +142,35 @@ router-link {
   font-size: 2rem;
 }
 
-.nav-item {
+.navbar-nav .nav-item {
   text-align: left;
 }
 
-.nav-link.active {
+.navbar-nav .nav-link.active {
   width: fit-content;
 }
 
-.nav-link:not(.active):hover {
+.navbar-nav .nav-link:not(.active):hover {
   background-color: var(--GREY-LIGHT);
   border-radius: 10px;
 }
 
-.nav-link.active:after {
+.navbar-nav .nav-link.active:after {
   display: block;
   border-bottom: 2px solid var(--PRIMARY);
   content: "";
   width: 80%;
   align-self: start;
+}
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.btn-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }
 </style>

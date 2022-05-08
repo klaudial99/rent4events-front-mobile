@@ -252,6 +252,7 @@ export default {
         .post(url, data)
         .then((response) => {
           console.log(response.data);
+          this.$store.commit("setShowAfterRegisterModal", true);
         })
         .catch((error) => {
           console.log(error);

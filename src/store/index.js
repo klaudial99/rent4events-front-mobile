@@ -9,6 +9,7 @@ export default createStore({
     token: "",
     refreshToken: "",
     role: "guest",
+    showAfterRegisterModal: false,
   },
   mutations: {
     setActiveTab(state, value) {
@@ -32,6 +33,9 @@ export default createStore({
     setRole(state, value) {
       state.role = value;
     },
+    setShowAfterRegisterModal(state, value) {
+      state.showAfterRegisterModal = value;
+    },
   },
   getters: {
     getActiveTab(state) {
@@ -54,6 +58,9 @@ export default createStore({
     },
     getRole(state) {
       return state.role;
+    },
+    getShowAfterRegisterModal(state) {
+      return state.showAfterRegisterModal;
     },
   },
   actions: {},

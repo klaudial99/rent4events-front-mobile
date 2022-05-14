@@ -43,7 +43,7 @@ export default {
 
 .btn-main {
   background-color: var(--PRIMARY);
-  color: white;
+  color: white !important;
   border-radius: 10px;
   font-weight: 500;
   border: 2px solid var(--PRIMARY);
@@ -54,14 +54,14 @@ export default {
 .btn-main:hover,
 .btn-main:focus {
   background-color: var(--PRIMARY-DARKER);
-  color: white;
+  color: white !important;
   border: 2px solid var(--PRIMARY-DARKER);
   box-shadow: none;
 }
 
 .btn-main-outline {
   background-color: white;
-  color: var(--PRIMARY);
+  color: var(--PRIMARY) !important;
   border-radius: 10px;
   font-weight: 500;
   border: 2px solid var(--PRIMARY);
@@ -72,7 +72,7 @@ export default {
 .btn-main-outline:hover,
 .btn-main-outline:focus {
   background-color: var(--PRIMARY-DARKER);
-  color: white;
+  color: white !important;
   border: 2px solid var(--PRIMARY-DARKER);
   box-shadow: none;
 }
@@ -185,7 +185,6 @@ router-link {
 }
 
 .dropdown-menu {
-  /*border-radius: 0;*/
   padding: 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   border: none;
@@ -201,5 +200,9 @@ router-link {
 .dropdown-item.active,
 .dropdown-item:active {
   background-color: var(--GREY-LIGHT);
+}
+
+.btn-no-style:focus {
+  box-shadow: none;
 }
 </style>

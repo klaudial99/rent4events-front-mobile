@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <nav class="navbar navbar-expand-xl navbar-light bg-white sticky-top">
     <div class="container">
       <a class="navbar-brand" href="#">rent4events</a>
       <button
@@ -64,12 +64,46 @@
             >
           </li>
           <li class="nav-item pe-3">
-            <router-link
-              class="nav-link"
-              :class="{ active: this.$route.name === 'Products' }"
-              to=""
-              >ASORTYMENT</router-link
-            >
+            <div class="dropdown">
+              <button
+                class="btn nav-link btn-no-style"
+                :class="{ active: this.$route.name === 'Categories' }"
+                type="button"
+                id="dropdownAssortment"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="true"
+                aria-expanded="false"
+              >
+                <span>ASORTYMENT</span>
+                <font-awesome-icon
+                  :icon="['fa', 'chevron-down']"
+                  size="2xs"
+                  class="ms-2"
+                />
+              </button>
+              <ul
+                class="dropdown-menu"
+                id="assortmentDropdownMenu"
+                aria-labelledby="dropdownAssortment"
+              >
+                <li>
+                  <router-link
+                    class="dropdown-item"
+                    :to="{ name: 'Categories' }"
+                    @click="hideDropdown"
+                    >Kategorie</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    class="dropdown-item"
+                    :to="{ name: 'Categories' }"
+                    @click="hideDropdown"
+                    >Produkty</router-link
+                  >
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item pe-3">
             <router-link
@@ -127,6 +161,11 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    hideDropdown() {
+      document
+        .getElementById("assortmentDropdownMenu")
+        .classList.remove("show");
     },
   },
 };

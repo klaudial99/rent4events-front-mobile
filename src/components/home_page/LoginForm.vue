@@ -7,7 +7,6 @@
         type="email"
         class="form-control"
         id="emailInputLogin"
-        aria-describedby="emailHelp"
         v-model="loginEmail"
         :class="{ 'error-input': v$.loginEmail.$error }"
         @focus="clearStatus"
@@ -98,7 +97,7 @@ export default {
           this.$store.commit("setLastName", response.data.lastName);
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setRefreshToken", response.data.refreshToken);
-          this.$store.commit("setRole", "client");
+          this.$store.commit("setRole", "manager");
           document.getElementById("loginRegisterModalClose").click();
           this.$router.push({ name: "Dashboard" });
         })

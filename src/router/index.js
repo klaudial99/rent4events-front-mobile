@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Dashboard from "@/views/Dashboard";
+import Categories from "@/views/Categories";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/home",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/categories",
+    name: "Categories",
+    component: Categories,
   },
 ];
 

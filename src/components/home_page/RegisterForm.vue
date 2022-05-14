@@ -7,7 +7,6 @@
         type="email"
         class="form-control"
         id="emailInputRegister"
-        aria-describedby="emailHelp"
         v-model="registerEmail"
         :class="{ 'error-input': v$.registerEmail.$error }"
       />

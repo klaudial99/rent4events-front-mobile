@@ -7,6 +7,7 @@ import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import VueNumber from "vue-number-animation";
+import { global_func } from "@/global-func";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -17,12 +18,26 @@ import {
   faPeopleGroup,
   faBoxesPacking,
   faArrowRight,
+  faPen,
+  faTrash,
+  faPlus,
+  faEyeSlash,
+  faXmark,
+  faCheck,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowUp);
 library.add(faTruck);
 library.add(faPeopleGroup);
 library.add(faBoxesPacking);
 library.add(faArrowRight);
+library.add(faPen);
+library.add(faTrash);
+library.add(faPlus);
+library.add(faEyeSlash);
+library.add(faXmark);
+library.add(faCheck);
+library.add(faChevronDown);
 
 import {
   faFacebook,
@@ -30,6 +45,7 @@ import {
   faTiktok,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+
 library.add(faFacebook);
 library.add(faInstagram);
 library.add(faTiktok);
@@ -38,6 +54,7 @@ library.add(faYoutube);
 const app = createApp(App).use(router);
 
 app.config.globalProperties.apiURL = process.env.VUE_APP_BASE_URI;
+app.config.globalProperties.$func_global = global_func;
 
 app.use(store);
 app.use(VueAxios, axios);

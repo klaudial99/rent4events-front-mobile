@@ -8,7 +8,9 @@
         class="form-control"
         id="emailInputRegister"
         v-model="registerEmail"
-        :class="{ 'error-input': v$.registerEmail.$error }"
+        :class="{ 'error-input': v$.registerEmail.$error || emailTaken }"
+        @focus="clearStatus"
+        @keypress="clearStatus"
       />
       <div
         v-for="error of v$.registerEmail.$errors"
@@ -16,6 +18,9 @@
         class="text-start mx-1"
       >
         <span class="error-msg">{{ error.$message }}</span>
+      </div>
+      <div class="text-start mx-1" v-if="emailTaken">
+        <span class="error-msg">Podany adres email jest już zajęty.</span>
       </div>
     </div>
 
@@ -161,6 +166,7 @@ export default {
       firstName: "",
       lastName: "",
       phoneNumber: "",
+      emailTaken: false,
     };
   },
   validations() {
@@ -247,6 +253,8 @@ export default {
 
       if (!isFormCorrect) return;
 
+      this.clearStatus();
+
       this.axios
         .post(url, data)
         .then((response) => {
@@ -254,8 +262,15 @@ export default {
           this.$store.commit("setShowAfterRegisterModal", true);
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "103"
+          )
+            this.emailTaken = true;
         });
+    },
+    clearStatus() {
+      this.emailTaken = false;
     },
   },
 };

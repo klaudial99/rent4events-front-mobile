@@ -102,7 +102,11 @@ export default {
           this.$router.push({ name: "Dashboard" });
         })
         .catch((error) => {
-          if (error.response.status === 400) this.wrongData = true;
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "104"
+          )
+            this.wrongData = true;
         });
     },
     clearStatus() {

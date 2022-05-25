@@ -10,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cat in categoriesSource" :key="cat.id">
+          <tr v-for="cat in categoriesSource" :key="cat.categoryId">
             <td v-if="editMode && editedCategory === cat">
               <input
                 @blur="v$.editedCategoryNewName.$touch"
@@ -21,7 +21,7 @@
                 :class="{ 'error-input': v$.editedCategoryNewName.$error }"
               />
             </td>
-            <td v-else>{{ cat.category_name }}</td>
+            <td v-else>{{ cat.categoryName }}</td>
 
             <td>{{ cat.count }}</td>
 
@@ -85,7 +85,7 @@
                   <p>
                     Czy na pewno chcesz usunąć kategorię
                     <span class="fst-italic">
-                      {{ deletedCategory.category_name }} </span
+                      {{ deletedCategory.categoryName }} </span
                     >?
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export default {
     turnOnEditMode(cat) {
       this.editMode = true;
       this.editedCategory = cat;
-      this.editedCategoryNewName = cat.category_name;
+      this.editedCategoryNewName = cat.categoryName;
     },
     cancelEdit() {
       this.editMode = false;
@@ -159,11 +159,11 @@ export default {
     },
     async confirmEdit(cat) {
       const category = {
-        category_name: this.editedCategoryNewName,
-        group_id: cat.group_id,
+        categoryName: this.editedCategoryNewName,
+        groupId: cat.groupId,
       };
 
-      const url = `${this.apiURL}api/Categories/${this.editedCategory.id}`;
+      const url = `${this.apiURL}api/Categories/${this.editedCategory.categoryId}`;
       const token = this.$store.getters.getToken;
 
       const isFormCorrect = await this.v$.$validate();
@@ -182,14 +182,13 @@ export default {
         });
     },
     async deleteCategory() {
-      const url = `${this.apiURL}api/Categories/${this.deletedCategory.id}`;
+      const url = `${this.apiURL}api/Categories/${this.deletedCategory.categoryId}`;
       const token = this.$store.getters.getToken;
 
       this.axios
         .delete(url, { headers: { Authorization: `Bearer ${token}` } })
-        .then((response) => {
-          console.log(response.data);
-          this.$emit("delete:category", this.deletedCategory.id);
+        .then(() => {
+          this.$emit("delete:category", this.deletedCategory.categoryId);
         })
         .catch((error) => {
           console.log(error);
@@ -217,9 +216,5 @@ export default {
 
 .table > :not(:first-child) {
   border-top: 1.5px solid currentColor;
-}
-
-.modal-decision-button {
-  width: 70%;
 }
 </style>

@@ -64,7 +64,7 @@ export default {
     async addCategory() {
       const category = {
         categoryGroup: 0,
-        category_name: this.categoryName,
+        categoryName: this.categoryName,
       };
 
       const url = `${this.apiURL}api/Categories`;
@@ -77,17 +77,18 @@ export default {
         .post(url, category, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.$emit("add:category", response.data);
+          this.clearNewCategoryData();
+          this.v$.$reset();
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    clearNewCategoryData() {
+      this.categoryName = "";
+    },
   },
 };
 </script>
 
-<style scoped>
-.btn-main-mobile {
-  width: 100%;
-}
-</style>
+<style scoped></style>

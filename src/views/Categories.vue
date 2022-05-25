@@ -80,11 +80,15 @@ export default {
       this.categories.unshift(category);
     },
     editCategory(category) {
-      const index = this.categories.findIndex((cat) => cat.id === category.id);
+      const index = this.categories.findIndex(
+        (cat) => cat.categoryId === category.categoryId
+      );
       this.categories[index] = category;
     },
     deleteCategory(categoryId) {
-      const index = this.categories.findIndex((cat) => cat.id === categoryId);
+      const index = this.categories.findIndex(
+        (cat) => cat.categoryId === categoryId
+      );
       this.categories.splice(index, 1);
     },
   },
@@ -94,12 +98,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.new-item {
-  color: var(--PRIMARY);
-}
-
-.add-hide-icon {
-  color: var(--PRIMARY);
-}
-</style>
+<style scoped></style>

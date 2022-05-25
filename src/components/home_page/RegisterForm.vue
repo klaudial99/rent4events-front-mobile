@@ -242,9 +242,9 @@ export default {
         email: this.registerEmail,
         password: this.registerPassword,
         password2: this.registerPasswordConfirm,
-        first_name: this.firstName,
-        last_name: this.lastName,
-        phone_no: this.phoneNumber,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        phoneNumber: this.phoneNumber,
       };
 
       const url = `${this.apiURL}api/Account/register`;

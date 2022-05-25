@@ -51,7 +51,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Vehicles' }"
-              to=""
+              :to="{ name: 'Vehicles' }"
               >POJAZDY</router-link
             >
           </li>

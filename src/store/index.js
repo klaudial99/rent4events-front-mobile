@@ -10,6 +10,8 @@ export default createStore({
     refreshToken: "",
     role: "guest",
     showAfterRegisterModal: false,
+    vehicleTypeOptions: ["BUS", "TRUCK"],
+    vehicleStatusOptions: ["WORKING", "AT_WORKSHOP", "NOT_WORKING"],
   },
   mutations: {
     setActiveTab(state, value) {
@@ -61,6 +63,12 @@ export default createStore({
     },
     getShowAfterRegisterModal(state) {
       return state.showAfterRegisterModal;
+    },
+    getVehicleTypeOptions(state) {
+      return state.vehicleTypeOptions;
+    },
+    getVehicleStatusOptions(state) {
+      return state.vehicleStatusOptions;
     },
   },
   actions: {},

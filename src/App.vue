@@ -205,4 +205,20 @@ router-link {
 .btn-no-style:focus {
   box-shadow: none;
 }
+
+.new-item {
+  color: var(--PRIMARY);
+}
+
+.add-hide-icon {
+  color: var(--PRIMARY);
+}
+
+.modal-decision-button {
+  width: 70%;
+}
+
+.btn-main-mobile {
+  width: 100%;
+}
 </style>

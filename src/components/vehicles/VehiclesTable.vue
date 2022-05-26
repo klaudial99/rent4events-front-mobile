@@ -354,7 +354,6 @@ export default {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log(response.data);
           this.$emit("edit:vehicle", response.data);
           this.editMode = false;
           this.editedVehicle = null;

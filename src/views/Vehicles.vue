@@ -37,7 +37,94 @@
         <vehicles-form @add:vehicle="addVehicle" />
       </div>
     </div>
+  </div>
+  <div class="filter-row">
+    <div class="container">
+      <div class="d-flex align-items-center text-start ms-0 ms-lg-4">
+        <div class="d-flex align-items-center flex-grow-1" id="filters">
+          <div class="filters-title">Filtry:</div>
+          <div class="d-flex filters">
+            <div id="vehicle-type" class="filters-group">
+              <button
+                class="btn btn-filters"
+                @click="setTypeFilter('BUS')"
+                :class="{
+                  active: userParams.vehicleType === 'BUS',
+                }"
+              >
+                Busy
+              </button>
+              <button
+                class="btn btn-filters"
+                @click="setTypeFilter('TRUCK')"
+                :class="{
+                  active: userParams.vehicleType === 'TRUCK',
+                }"
+              >
+                Samochody ciężarowe
+              </button>
+            </div>
 
+            <div id="vehicle-status" class="filters-group">
+              <select
+                v-model="userParams.vehicleStatus"
+                class="form-select form-select-sm form-control btn-no-style"
+                id="vehicleTypeFilter"
+                @change="getVehicles(true)"
+              >
+                <option value="" selected disabled>Status</option>
+                <option value="">-</option>
+                <option
+                  v-for="status in this.$store.getters.getVehicleStatusOptions"
+                  :key="status"
+                  :value="status"
+                >
+                  {{ this.$func_global.mapVehicleStatusName(status) }}
+                </option>
+              </select>
+            </div>
+
+            <div id="vehicle-sort" class="filters-group">
+              <select
+                v-model="userParams.orderBy"
+                class="form-select form-select-sm form-control btn-no-style"
+                id="vehicleSort"
+                @change="getVehicles(true)"
+              >
+                <option value="" selected disabled>Sortowanie</option>
+                <option value="">-</option>
+                <option
+                  v-for="sort in filters.sortByOptions"
+                  :key="sort.label"
+                  :value="sort.value"
+                >
+                  {{ sort.label }}
+                </option>
+              </select>
+            </div>
+
+            <div id="vehicle-clear" v-if="filtersApplied">
+              <button
+                class="btn btn-filters"
+                @click="
+                  clearFilters();
+                  getVehicles(true);
+                "
+              >
+                Wyczyść wszystkie
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="pages">
+          <div class="p-0">Strony:</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
     <vehicles-table
       :vehicles-source="vehicles"
       class="mt-4"
@@ -63,8 +150,19 @@ export default {
       userParams: {
         goToPage: 1,
         pageSize: 20,
+        vehicleType: "",
+        vehicleStatus: "",
         orderBy: "",
-        filter: "",
+      },
+      filters: {
+        sortByOptions: [
+          { label: "Marka i model A-Z", value: "brand asc, model asc" },
+          { label: "Marka i model Z-A", value: "brand desc, model desc" },
+          { label: "Numer A-Z", value: "licensePlate asc" },
+          { label: "Numer Z-A", value: "licensePlate desc" },
+          // { label: "Przegląd rosnąco", value: "serviceTo asc" },
+          // { label: "Przegląd malejąco", value: "serviceTo desc" },
+        ],
       },
       navigation: {
         totalCount: 0,
@@ -78,14 +176,14 @@ export default {
     };
   },
   methods: {
-    getVehicles() {
+    getVehicles(firstPage) {
       const url = `${this.apiURL}api/Vehicles`;
       const token = this.$store.getters.getToken;
       const requestParams = {
-        Page: this.userParams.goToPage,
+        Page: firstPage ? 1 : this.userParams.goToPage,
         PageSize: this.userParams.itemsPerPage,
         OrderBy: this.userParams.orderBy,
-        Filter: this.userParams.filter,
+        Filter: this.filterString,
       };
 
       this.axios
@@ -94,7 +192,6 @@ export default {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log(response.data);
           this.vehicles = response.data.results;
           this.navigation.totalCount = response.data.totalCount;
           this.navigation.page = response.data.page;
@@ -125,11 +222,93 @@ export default {
       );
       this.vehicles.splice(index, 1);
     },
+    clearFilters() {
+      this.userParams.vehicleType = "";
+      this.userParams.vehicleStatus = "";
+      this.userParams.orderBy = "";
+    },
+    setTypeFilter(type) {
+      if (this.userParams.vehicleType === type)
+        this.userParams.vehicleType = "";
+      else this.userParams.vehicleType = type;
+      this.getVehicles(true);
+    },
   },
   mounted() {
-    this.getVehicles();
+    this.getVehicles(true);
+  },
+  computed: {
+    filtersApplied() {
+      return (
+        this.userParams.vehicleType !== "" ||
+        this.userParams.vehicleStatus !== "" ||
+        this.userParams.orderBy !== ""
+      );
+    },
+    filterString() {
+      const type = this.userParams.vehicleType;
+      const status = this.userParams.vehicleStatus;
+      let filters = [];
+      if (type !== "") filters.push("type=" + type);
+      if (status !== "") filters.push("status=" + status);
+      return filters.join();
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.filter-row {
+  border-top: 1px solid var(--GREY);
+  border-bottom: 1px solid var(--GREY);
+  padding: 0.9rem 0;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.filters-title {
+  font-weight: 500;
+  padding: 0.3rem 0.5rem 0.3rem 0;
+  font-size: smaller;
+}
+
+.btn-filters {
+  box-shadow: none;
+  border-radius: 10px;
+  padding: 0.3rem 0.5rem;
+  margin: 0 0.3rem;
+  font-size: smaller;
+  white-space: nowrap;
+}
+
+.btn-filters:hover,
+.btn-filters:focus {
+  box-shadow: none;
+  background-color: var(--GREY-LIGHT);
+}
+
+.btn-filters:active,
+.btn-filters.active {
+  box-shadow: none;
+  background-color: var(--PRIMARY);
+  color: white;
+}
+
+.filters-group {
+  display: flex;
+  align-items: center;
+}
+
+.filters-group:not(:first-child) {
+  border-left: 1px solid var(--GREY);
+}
+
+.form-select {
+  margin: 0 0.8rem;
+  width: fit-content;
+}
+
+select option[disabled]:first-child {
+  display: none;
+}
+</style>

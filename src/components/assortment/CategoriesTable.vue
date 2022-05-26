@@ -18,7 +18,12 @@
                 class="form-control"
                 id="newCategoryNameInput"
                 v-model="editedCategoryNewName"
-                :class="{ 'error-input': v$.editedCategoryNewName.$error }"
+                :class="{
+                  'error-input':
+                    v$.editedCategoryNewName.$error || categoryNameTaken,
+                }"
+                @focus="clearStatus"
+                @keypress="clearStatus"
               />
             </td>
             <td v-else>{{ cat.categoryName }}</td>
@@ -137,6 +142,7 @@ export default {
       editedCategory: null,
       editedCategoryNewName: "",
       deletedCategory: null,
+      categoryNameTaken: false,
     };
   },
   validations() {
@@ -157,6 +163,9 @@ export default {
       this.editedCategory = null;
       this.editedCategoryNewName = "";
     },
+    clearStatus() {
+      this.categoryNameTaken = false;
+    },
     async confirmEdit(cat) {
       const category = {
         categoryName: this.editedCategoryNewName,
@@ -169,6 +178,8 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
+      this.clearStatus();
+
       this.axios
         .put(url, category, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
@@ -178,7 +189,11 @@ export default {
           this.editedCategoryNewName = "";
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "101"
+          )
+            this.categoryNameTaken = true;
         });
     },
     async deleteCategory() {

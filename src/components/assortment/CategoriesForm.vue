@@ -10,7 +10,11 @@
             class="form-control"
             id="categoryNameInput"
             v-model="categoryName"
-            :class="{ 'error-input': v$.categoryName.$error }"
+            :class="{
+              'error-input': v$.categoryName.$error || categoryNameTaken,
+            }"
+            @focus="clearStatus"
+            @keypress="clearStatus"
           />
         </div>
       </div>
@@ -26,6 +30,11 @@
           class="text-start mx-1"
         >
           <span class="error-msg">{{ error.$message }}</span>
+        </div>
+        <div class="text-start mx-1" v-if="categoryNameTaken">
+          <span class="error-msg"
+            >Kategoria o podanej nazwie już istnieje.</span
+          >
         </div>
       </div>
     </div>
@@ -51,6 +60,7 @@ export default {
   data() {
     return {
       categoryName: "",
+      categoryNameTaken: false,
     };
   },
   validations() {
@@ -73,6 +83,8 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
+      this.clearStatus();
+
       this.axios
         .post(url, category, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
@@ -81,11 +93,18 @@ export default {
           this.v$.$reset();
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "101"
+          )
+            this.categoryNameTaken = true;
         });
     },
     clearNewCategoryData() {
       this.categoryName = "";
+    },
+    clearStatus() {
+      this.categoryNameTaken = false;
     },
   },
 };

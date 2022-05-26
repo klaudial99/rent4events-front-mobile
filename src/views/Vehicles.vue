@@ -110,6 +110,7 @@ export default {
         });
     },
     addVehicle(vehicle) {
+      vehicle.deletable = true;
       this.vehicles.unshift(vehicle);
     },
     editVehicle(vehicle) {

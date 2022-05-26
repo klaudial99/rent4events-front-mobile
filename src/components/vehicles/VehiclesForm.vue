@@ -76,7 +76,12 @@
             class="form-control"
             id="vehicleLicensePlateInput"
             v-model="newVehicle.licensePlate"
-            :class="{ 'error-input': v$.newVehicle.licensePlate.$error }"
+            :class="{
+              'error-input':
+                v$.newVehicle.licensePlate.$error || licensePlateTaken,
+            }"
+            @focus="clearStatus"
+            @keypress="clearStatus"
           />
           <div
             v-for="error of v$.newVehicle.licensePlate.$errors"
@@ -84,6 +89,11 @@
             class="text-start mx-1"
           >
             <span class="error-msg">{{ error.$message }}</span>
+          </div>
+          <div class="text-start mx-1" v-if="licensePlateTaken">
+            <span class="error-msg"
+              >Pojazd o podanym numerze rejestracyjnym już istnieje.</span
+            >
           </div>
         </div>
       </div>
@@ -195,6 +205,7 @@ export default {
         status: "",
         serviceTo: null,
       },
+      licensePlateTaken: false,
     };
   },
   validations() {
@@ -257,6 +268,8 @@ export default {
       const isFormCorrect = await this.v$.$validate();
       if (!isFormCorrect) return;
 
+      this.clearStatus();
+
       this.axios
         .post(url, this.newVehicle, {
           headers: { Authorization: `Bearer ${token}` },
@@ -267,8 +280,15 @@ export default {
           this.v$.$reset();
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "102"
+          )
+            this.licensePlateTaken = true;
         });
+    },
+    clearStatus() {
+      this.licensePlateTaken = false;
     },
     clearNewVehicleData() {
       this.newVehicle = {

@@ -403,4 +403,37 @@ export default {
 .table > :not(:first-child) {
   border-top: 1.5px solid currentColor;
 }
+
+@media (min-width: 1px) and (max-width: 575px) {
+  td {
+    min-width: calc(100vw / 4);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  td {
+    min-width: calc(100vw / 5);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  td {
+    min-width: calc(100vw / 6);
+  }
+}
+
+@media (min-width: 992px) {
+  td {
+    min-width: calc(100vw / 10);
+  }
+  .table-responsive {
+    overflow-x: hidden;
+  }
+}
+
+@media (min-width: 1200px) {
+  td {
+    min-width: calc(100vw / 9);
+  }
+}
 </style>

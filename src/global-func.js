@@ -14,6 +14,12 @@ export const global_func = {
     else if (status === "AT_WORKSHOP") return "W naprawie";
     else if (status === "NOT_WORKING") return "Niesprawny";
   },
+  mapResultForm(counter) {
+    if (counter === 1) return "wynik";
+    else if ([2, 3, 4].includes(parseInt(String(counter).slice(-1)))) {
+      return "wyniki";
+    } else return "wyników";
+  },
   formatDate(date) {
     if (date) {
       return moment(String(date)).format("DD/MM/YYYY");

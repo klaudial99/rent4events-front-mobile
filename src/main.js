@@ -25,6 +25,8 @@ import {
   faXmark,
   faCheck,
   faChevronDown,
+  faChevronRight,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowUp);
 library.add(faTruck);
@@ -38,6 +40,8 @@ library.add(faEyeSlash);
 library.add(faXmark);
 library.add(faCheck);
 library.add(faChevronDown);
+library.add(faChevronRight);
+library.add(faChevronLeft);
 
 import {
   faFacebook,

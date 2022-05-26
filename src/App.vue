@@ -221,4 +221,61 @@ router-link {
 .btn-main-mobile {
   width: 100%;
 }
+
+.text-disabled {
+  color: var(--BLACK-LIGHTER);
+}
+
+.fs-smaller {
+  font-size: smaller;
+}
+
+.filter-row {
+  border-top: 1px solid var(--GREY);
+  border-bottom: 1px solid var(--GREY);
+  padding: 0.9rem 0;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.filters-title {
+  font-weight: 500;
+  padding: 0.3rem 0.5rem 0.3rem 0;
+  font-size: smaller;
+}
+
+.btn-filters {
+  box-shadow: none;
+  border-radius: 10px;
+  padding: 0.3rem 0.5rem;
+  margin: 0 0.3rem;
+  font-size: smaller;
+  white-space: nowrap;
+}
+
+.btn-filters:hover,
+.btn-filters:focus {
+  box-shadow: none;
+  background-color: var(--GREY-LIGHT);
+}
+
+.btn-filters:active,
+.btn-filters.active {
+  box-shadow: none;
+  background-color: var(--PRIMARY);
+  color: white;
+}
+
+.filters-group {
+  display: flex;
+  align-items: center;
+}
+
+.filters-group:not(:first-child) {
+  border-left: 1px solid var(--GREY);
+}
+
+select option[disabled]:first-child {
+  display: none;
+}
 </style>

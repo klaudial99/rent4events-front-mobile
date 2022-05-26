@@ -117,10 +117,21 @@
           </div>
         </div>
 
-        <div id="pages">
-          <div class="p-0">Strony:</div>
-        </div>
+        <pagination
+          :navigation-source="navigation"
+          @switch:page="handleGoToPage"
+          class="d-none d-lg-flex"
+        />
       </div>
+    </div>
+  </div>
+
+  <div class="container d-lg-none">
+    <div class="d-flex flex-row-reverse">
+      <pagination
+        :navigation-source="navigation"
+        @switch:page="handleGoToPage"
+      />
     </div>
   </div>
 
@@ -132,16 +143,27 @@
       @delete:vehicle="deleteVehicle"
     />
   </div>
+
+  <div class="container mb-3" v-if="vehicles.length >= 10">
+    <div class="d-flex flex-row-reverse">
+      <pagination
+        :navigation-source="navigation"
+        @switch:page="handleGoToPage"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 import VehiclesForm from "@/components/vehicles/VehiclesForm";
 import VehiclesTable from "@/components/vehicles/VehiclesTable";
+import Pagination from "@/components/pagination/Pagination";
 export default {
   name: "Vehicles",
   components: {
     VehiclesForm,
     VehiclesTable,
+    Pagination,
   },
   data() {
     return {
@@ -149,7 +171,7 @@ export default {
       addNewVehicle: false,
       userParams: {
         goToPage: 1,
-        pageSize: 20,
+        itemsPerPage: 20,
         vehicleType: "",
         vehicleStatus: "",
         orderBy: "",
@@ -160,8 +182,6 @@ export default {
           { label: "Marka i model Z-A", value: "brand desc, model desc" },
           { label: "Numer A-Z", value: "licensePlate asc" },
           { label: "Numer Z-A", value: "licensePlate desc" },
-          // { label: "Przegląd rosnąco", value: "serviceTo asc" },
-          // { label: "Przegląd malejąco", value: "serviceTo desc" },
         ],
       },
       navigation: {
@@ -208,6 +228,7 @@ export default {
     },
     addVehicle(vehicle) {
       vehicle.deletable = true;
+      this.navigation.totalCount++;
       this.vehicles.unshift(vehicle);
     },
     editVehicle(vehicle) {
@@ -232,6 +253,10 @@ export default {
         this.userParams.vehicleType = "";
       else this.userParams.vehicleType = type;
       this.getVehicles(true);
+    },
+    handleGoToPage(number) {
+      this.userParams.goToPage = number;
+      this.getVehicles(false);
     },
   },
   mounted() {
@@ -258,57 +283,8 @@ export default {
 </script>
 
 <style scoped>
-.filter-row {
-  border-top: 1px solid var(--GREY);
-  border-bottom: 1px solid var(--GREY);
-  padding: 0.9rem 0;
-  margin: 1rem 0;
-  overflow-x: auto;
-}
-
-.filters-title {
-  font-weight: 500;
-  padding: 0.3rem 0.5rem 0.3rem 0;
-  font-size: smaller;
-}
-
-.btn-filters {
-  box-shadow: none;
-  border-radius: 10px;
-  padding: 0.3rem 0.5rem;
-  margin: 0 0.3rem;
-  font-size: smaller;
-  white-space: nowrap;
-}
-
-.btn-filters:hover,
-.btn-filters:focus {
-  box-shadow: none;
-  background-color: var(--GREY-LIGHT);
-}
-
-.btn-filters:active,
-.btn-filters.active {
-  box-shadow: none;
-  background-color: var(--PRIMARY);
-  color: white;
-}
-
-.filters-group {
-  display: flex;
-  align-items: center;
-}
-
-.filters-group:not(:first-child) {
-  border-left: 1px solid var(--GREY);
-}
-
 .form-select {
   margin: 0 0.8rem;
   width: fit-content;
-}
-
-select option[disabled]:first-child {
-  display: none;
 }
 </style>

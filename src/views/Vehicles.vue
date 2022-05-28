@@ -49,7 +49,7 @@
                 class="btn btn-filters"
                 @click="setTypeFilter('BUS')"
                 :class="{
-                  active: userParams.vehicleType === 'BUS',
+                  active: userParams.filters.type === 'BUS',
                 }"
               >
                 Busy
@@ -58,7 +58,7 @@
                 class="btn btn-filters"
                 @click="setTypeFilter('TRUCK')"
                 :class="{
-                  active: userParams.vehicleType === 'TRUCK',
+                  active: userParams.filters.type === 'TRUCK',
                 }"
               >
                 Samochody ciężarowe
@@ -67,7 +67,7 @@
 
             <div id="vehicle-status" class="filters-group">
               <select
-                v-model="userParams.vehicleStatus"
+                v-model="userParams.filters.status"
                 class="form-select form-select-sm form-control btn-no-style"
                 id="vehicleTypeFilter"
                 @change="getVehicles(true)"
@@ -172,8 +172,10 @@ export default {
       userParams: {
         goToPage: 1,
         itemsPerPage: 20,
-        vehicleType: "",
-        vehicleStatus: "",
+        filters: {
+          type: "",
+          status: "",
+        },
         orderBy: "",
       },
       filters: {
@@ -244,14 +246,14 @@ export default {
       this.vehicles.splice(index, 1);
     },
     clearFilters() {
-      this.userParams.vehicleType = "";
-      this.userParams.vehicleStatus = "";
+      this.userParams.type = "";
+      this.userParams.status = "";
       this.userParams.orderBy = "";
     },
     setTypeFilter(type) {
-      if (this.userParams.vehicleType === type)
-        this.userParams.vehicleType = "";
-      else this.userParams.vehicleType = type;
+      if (this.userParams.filters.type === type)
+        this.userParams.filters.type = "";
+      else this.userParams.filters.type = type;
       this.getVehicles(true);
     },
     handleGoToPage(number) {
@@ -265,18 +267,13 @@ export default {
   computed: {
     filtersApplied() {
       return (
-        this.userParams.vehicleType !== "" ||
-        this.userParams.vehicleStatus !== "" ||
+        this.userParams.filters.type !== "" ||
+        this.userParams.filters.status !== "" ||
         this.userParams.orderBy !== ""
       );
     },
     filterString() {
-      const type = this.userParams.vehicleType;
-      const status = this.userParams.vehicleStatus;
-      let filters = [];
-      if (type !== "") filters.push("type=" + type);
-      if (status !== "") filters.push("status=" + status);
-      return filters.join();
+      return this.$func_global.formatFilters(this.userParams.filters);
     },
   },
 };

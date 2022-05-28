@@ -33,4 +33,11 @@ export const global_func = {
 
     return `${day}/${month}/${year}`;
   },
+  formatFilters(filters) {
+    let filtersFormatted = [];
+    for (const key in filters) {
+      if (filters[key] !== "") filtersFormatted.push(key + "=" + filters[key]);
+    }
+    return filtersFormatted.join();
+  },
 };

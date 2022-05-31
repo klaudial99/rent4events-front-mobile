@@ -229,7 +229,6 @@ export default {
         });
     },
     addVehicle(vehicle) {
-      vehicle.deletable = true;
       this.navigation.totalCount++;
       this.vehicles.unshift(vehicle);
     },
@@ -246,8 +245,8 @@ export default {
       this.vehicles.splice(index, 1);
     },
     clearFilters() {
-      this.userParams.type = "";
-      this.userParams.status = "";
+      this.userParams.filters.type = "";
+      this.userParams.filters.status = "";
       this.userParams.orderBy = "";
     },
     setTypeFilter(type) {

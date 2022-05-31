@@ -278,4 +278,19 @@ router-link {
 select option[disabled]:first-child {
   display: none;
 }
+
+.table-btn:hover,
+.table-btn:active,
+.table-btn:focus {
+  box-shadow: none;
+}
+
+.table-icon:hover,
+.table-icon:active {
+  color: var(--PRIMARY);
+}
+
+.table > :not(:first-child) {
+  border-top: 1.5px solid currentColor;
+}
 </style>

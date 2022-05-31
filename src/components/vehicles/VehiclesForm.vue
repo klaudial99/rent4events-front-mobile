@@ -134,8 +134,8 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center align-items-end">
-      <div class="col-12 col-sm-9 col-md-10">
+    <div class="row justify-content-between align-items-end">
+      <div class="col-12 col-sm-6 col-lg-4">
         <div class="text-start">
           <label for="vehicleServiceToInput" class="form-label"
             >Przegląd do:</label

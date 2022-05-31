@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="addCategory" novalidate>
-    <div class="row justify-content-center align-items-end">
-      <div class="col-12 col-sm-9 col-md-10">
+    <div class="row justify-content-between align-items-end">
+      <div class="col-12 col-sm-9 col-md-8">
         <div class="text-start">
           <label for="categoryNameInput" class="form-label">Nazwa:</label>
           <input

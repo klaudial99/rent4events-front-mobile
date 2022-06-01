@@ -2,39 +2,42 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col text-start ms-0 ms-lg-4">
-        <h3>Pojazdy</h3>
+        <h3>Produkty</h3>
       </div>
       <div class="col text-end">
         <button
           class="btn btn-no-style"
-          v-if="addNewVehicle"
-          @click="addNewVehicle = !addNewVehicle"
+          v-if="addNewProduct"
+          @click="addNewProduct = !addNewProduct"
         >
           <font-awesome-icon
             :icon="['fa', 'eye-slash']"
             size="sm"
             class="add-hide-icon"
           />
-          <span class="d-none d-md-inline"> Ukryj dodawanie pojazdu </span>
+          <span class="d-none d-md-inline"> Ukryj dodawanie produktu </span>
         </button>
         <button
           class="btn btn-no-style"
           v-else
-          @click="addNewVehicle = !addNewVehicle"
+          @click="addNewProduct = !addNewProduct"
         >
           <font-awesome-icon
             :icon="['fa', 'plus']"
             size="sm"
             class="add-hide-icon"
           />
-          <span class="d-none d-md-inline"> Dodaj nowy pojazd </span>
+          <span class="d-none d-md-inline"> Dodaj nowy produkt </span>
         </button>
       </div>
     </div>
-    <div class="row justify-content-center" v-if="addNewVehicle">
+    <div class="row justify-content-center" v-if="addNewProduct">
       <div class="col ms-0 ms-lg-4 mt-4">
-        <h6 class="text-start new-item">Nowy pojazd:</h6>
-        <vehicles-form @add:vehicle="addVehicle" />
+        <h6 class="text-start new-item">Nowy produkt:</h6>
+        <products-form
+          @add:product="addProduct"
+          :categories-source="categories"
+        />
       </div>
     </div>
   </div>
@@ -44,52 +47,31 @@
         <div class="d-flex align-items-center flex-grow-1" id="filters">
           <div class="filters-title">Filtry:</div>
           <div class="d-flex filters">
-            <div id="vehicle-type" class="filters-group">
-              <button
-                class="btn btn-filters"
-                @click="setTypeFilter('BUS')"
-                :class="{
-                  active: userParams.filters.type === 'BUS',
-                }"
-              >
-                Busy
-              </button>
-              <button
-                class="btn btn-filters"
-                @click="setTypeFilter('TRUCK')"
-                :class="{
-                  active: userParams.filters.type === 'TRUCK',
-                }"
-              >
-                Samochody ciężarowe
-              </button>
-            </div>
-
-            <div id="vehicle-status" class="filters-group">
+            <div id="product-category" class="filters-group">
               <select
-                v-model="userParams.filters.status"
+                v-model="userParams.filters.categoryName"
                 class="form-select form-select-sm form-control btn-no-style"
-                id="vehicleTypeFilter"
-                @change="getVehicles(true)"
+                id="productCategoryFilter"
+                @change="getProducts(true)"
               >
-                <option value="" selected disabled>Status</option>
+                <option value="" selected disabled>Kategoria</option>
                 <option value="">-</option>
                 <option
-                  v-for="status in this.$store.getters.getVehicleStatusOptions"
-                  :key="status"
-                  :value="status"
+                  v-for="cat in this.categories"
+                  :key="cat.categoryId"
+                  :value="cat.categoryName"
                 >
-                  {{ this.$func_global.mapVehicleStatusName(status) }}
+                  {{ cat.categoryName }}
                 </option>
               </select>
             </div>
 
-            <div id="vehicle-sort" class="filters-group">
+            <div id="product-sort" class="filters-group">
               <select
                 v-model="userParams.orderBy"
                 class="form-select form-select-sm form-control btn-no-style"
-                id="vehicleSort"
-                @change="getVehicles(true)"
+                id="productSort"
+                @change="getProducts(true)"
               >
                 <option value="" selected disabled>Sortowanie</option>
                 <option value="">-</option>
@@ -103,12 +85,12 @@
               </select>
             </div>
 
-            <div id="vehicle-clear" v-if="filtersApplied">
+            <div id="product-clear" v-if="filtersApplied">
               <button
                 class="btn btn-filters"
                 @click="
                   clearFilters();
-                  getVehicles(true);
+                  getProducts(true);
                 "
               >
                 Wyczyść wszystkie
@@ -136,15 +118,16 @@
   </div>
 
   <div class="container">
-    <vehicles-table
-      :vehicles-source="vehicles"
+    <products-table
+      :products-source="products"
+      :categories-source="categories"
       class="mt-4"
-      @edit:vehicle="editVehicle"
-      @delete:vehicle="deleteVehicle"
+      @edit:product="editProduct"
+      @delete:product="deleteProduct"
     />
   </div>
 
-  <div class="container mb-3" v-if="vehicles.length >= 10">
+  <div class="container mb-3" v-if="products.length >= 10">
     <div class="d-flex flex-row-reverse">
       <pagination
         :navigation-source="navigation"
@@ -155,35 +138,36 @@
 </template>
 
 <script>
-import VehiclesForm from "@/components/vehicles/VehiclesForm";
-import VehiclesTable from "@/components/vehicles/VehiclesTable";
+import ProductsTable from "@/components/assortment/ProductsTable";
+import ProductsForm from "@/components/assortment/ProductsForm";
 import Pagination from "@/components/pagination/Pagination";
+
 export default {
-  name: "Vehicles",
+  name: "Products",
   components: {
-    VehiclesForm,
-    VehiclesTable,
+    ProductsTable,
+    ProductsForm,
     Pagination,
   },
   data() {
     return {
-      vehicles: [],
-      addNewVehicle: false,
+      products: [],
+      categories: [],
+      addNewProduct: false,
       userParams: {
         goToPage: 1,
         itemsPerPage: 20,
         filters: {
-          type: "",
-          status: "",
+          categoryName: "",
         },
         orderBy: "",
       },
       filters: {
         sortByOptions: [
-          { label: "Marka i model A-Z", value: "brand asc, model asc" },
-          { label: "Marka i model Z-A", value: "brand desc, model desc" },
-          { label: "Numer A-Z", value: "licensePlate asc" },
-          { label: "Numer Z-A", value: "licensePlate desc" },
+          { label: "Nazwa A-Z", value: "name asc" },
+          { label: "Nazwa Z-A", value: "name desc" },
+          { label: "Kategoria A-Z", value: "categoryName asc" },
+          { label: "Kategoria Z-A", value: "categoryName desc" },
         ],
       },
       navigation: {
@@ -198,8 +182,8 @@ export default {
     };
   },
   methods: {
-    getVehicles(firstPage) {
-      const url = `${this.apiURL}api/Vehicles`;
+    getProducts(firstPage) {
+      const url = `${this.apiURL}api/Products`;
       const token = this.$store.getters.getToken;
       const requestParams = {
         Page: firstPage ? 1 : this.userParams.goToPage,
@@ -214,7 +198,7 @@ export default {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          this.vehicles = response.data.results;
+          this.products = response.data.results;
           this.navigation.totalCount = response.data.totalCount;
           this.navigation.page = response.data.page;
           this.navigation.itemsPerPage = response.data.itemsPerPage;
@@ -228,48 +212,53 @@ export default {
           console.log(error);
         });
     },
-    addVehicle(vehicle) {
+    getCategories() {
+      const url = `${this.apiURL}api/Categories`;
+      const token = this.$store.getters.getToken;
+
+      this.axios
+        .get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+          this.categories = response.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addProduct(product) {
       this.navigation.totalCount++;
-      this.vehicles.unshift(vehicle);
+      this.products.unshift(product);
     },
-    editVehicle(vehicle) {
-      const index = this.vehicles.findIndex(
-        (veh) => veh.vehicleId === vehicle.vehicleId
+    editProduct(product) {
+      const index = this.products.findIndex(
+        (prod) => prod.productId === product.productId
       );
-      this.vehicles[index] = vehicle;
+      this.products[index] = product;
     },
-    deleteVehicle(vehicleId) {
-      const index = this.vehicles.findIndex(
-        (veh) => veh.vehicleId === vehicleId
+    deleteProduct(productId) {
+      const index = this.products.findIndex(
+        (prod) => prod.productId === productId
       );
-      this.vehicles.splice(index, 1);
+      this.products.splice(index, 1);
       this.navigation.totalCount--;
     },
     clearFilters() {
-      this.userParams.filters.type = "";
-      this.userParams.filters.status = "";
+      this.userParams.filters.categoryName = "";
       this.userParams.orderBy = "";
-    },
-    setTypeFilter(type) {
-      if (this.userParams.filters.type === type)
-        this.userParams.filters.type = "";
-      else this.userParams.filters.type = type;
-      this.getVehicles(true);
     },
     handleGoToPage(number) {
       this.userParams.goToPage = number;
-      this.getVehicles(false);
+      this.getProducts(false);
     },
   },
   mounted() {
-    this.getVehicles(true);
+    this.getProducts(true);
+    this.getCategories();
   },
   computed: {
     filtersApplied() {
       return (
-        this.userParams.filters.type !== "" ||
-        this.userParams.filters.status !== "" ||
-        this.userParams.orderBy !== ""
+        this.userParams.filters.categoryName !== "" || this.userParams.orderBy
       );
     },
     filterString() {

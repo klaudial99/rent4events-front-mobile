@@ -43,7 +43,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Drivers' }"
-              to=""
+              :to="{ name: 'Drivers' }"
               >KADRA</router-link
             >
           </li>
@@ -67,7 +67,11 @@
             <div class="dropdown">
               <button
                 class="btn nav-link btn-no-style"
-                :class="{ active: this.$route.name === 'Categories' }"
+                :class="{
+                  active:
+                    this.$route.name === 'Categories' ||
+                    this.$route.name === 'Products',
+                }"
                 type="button"
                 id="dropdownAssortment"
                 data-bs-toggle="dropdown"
@@ -97,7 +101,7 @@
                 <li>
                   <router-link
                     class="dropdown-item"
-                    :to="{ name: 'Categories' }"
+                    :to="{ name: 'Products' }"
                     @click="hideDropdown"
                     >Produkty</router-link
                   >
@@ -105,14 +109,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item pe-3">
-            <router-link
-              class="nav-link"
-              :class="{ active: this.$route.name === 'Reports' }"
-              to=""
-              >RAPORTY</router-link
-            >
-          </li>
+
           <li class="nav-item pe-3">
             <div class="dropdown">
               <button

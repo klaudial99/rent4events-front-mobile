@@ -3,6 +3,8 @@ import Home from "../views/Home.vue";
 import Dashboard from "@/views/Dashboard";
 import Categories from "@/views/Categories";
 import Vehicles from "@/views/Vehicles";
+import Products from "@/views/Products";
+import Drivers from "@/views/Drivers";
 
 const routes = [
   {
@@ -33,6 +35,16 @@ const routes = [
     path: "/vehicles",
     name: "Vehicles",
     component: Vehicles,
+  },
+  {
+    path: "/products",
+    name: "Products",
+    component: Products,
+  },
+  {
+    path: "/drivers",
+    name: "Drivers",
+    component: Drivers,
   },
 ];
 

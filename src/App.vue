@@ -293,4 +293,8 @@ select option[disabled]:first-child {
 .table > :not(:first-child) {
   border-top: 1.5px solid currentColor;
 }
+
+.fw-500 {
+  font-weight: 500;
+}
 </style>

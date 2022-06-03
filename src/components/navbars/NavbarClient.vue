@@ -27,7 +27,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Offer' }"
-              to=""
+              :to="{ name: 'Offer' }"
               >OFERTA</router-link
             >
           </li>
@@ -39,6 +39,7 @@
               >ZAMÓWIENIA</router-link
             >
           </li>
+
           <li class="nav-item pe-3">
             <div class="dropdown">
               <button
@@ -64,6 +65,12 @@
                 </li>
               </ul>
             </div>
+          </li>
+          <li class="nav-item pe-3">
+            <router-link class="nav-link cart px-3" :to="{ name: 'Cart' }">
+              <font-awesome-icon :icon="['fa', 'cart-shopping']" />
+              <span class="cart-money ms-3 align-self-center">0,00 zł</span>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -96,5 +103,21 @@ export default {
 .nav-link {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
+}
+
+.navbar-nav .cart {
+  background-color: var(--PRIMARY) !important;
+  color: white;
+  border-radius: 10px;
+}
+
+.navbar-nav .cart:hover,
+.navbar-nav .cart:focus {
+  background-color: var(--PRIMARY-DARKER) !important;
+  color: white;
+}
+
+.cart-money {
+  font-size: smaller;
 }
 </style>

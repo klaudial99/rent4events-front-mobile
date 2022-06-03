@@ -27,6 +27,7 @@ import {
   faChevronDown,
   faChevronRight,
   faChevronLeft,
+  faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowUp);
 library.add(faTruck);
@@ -42,6 +43,7 @@ library.add(faCheck);
 library.add(faChevronDown);
 library.add(faChevronRight);
 library.add(faChevronLeft);
+library.add(faCartShopping);
 
 import {
   faFacebook,

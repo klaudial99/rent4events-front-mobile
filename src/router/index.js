@@ -5,6 +5,8 @@ import Categories from "@/views/Categories";
 import Vehicles from "@/views/Vehicles";
 import Products from "@/views/Products";
 import Drivers from "@/views/Drivers";
+import Cart from "@/views/Cart";
+import Offer from "@/views/Offer";
 
 const routes = [
   {
@@ -45,6 +47,16 @@ const routes = [
     path: "/drivers",
     name: "Drivers",
     component: Drivers,
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
+  },
+  {
+    path: "/offer",
+    name: "Offer",
+    component: Offer,
   },
 ];
 

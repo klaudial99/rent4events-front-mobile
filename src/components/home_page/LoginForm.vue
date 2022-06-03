@@ -97,7 +97,7 @@ export default {
           this.$store.commit("setLastName", response.data.lastName);
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setRefreshToken", response.data.refreshToken);
-          this.$store.commit("setRole", "manager");
+          this.$store.commit("setRole", "client");
           document.getElementById("loginRegisterModalClose").click();
           this.$router.push({ name: "Dashboard" });
         })

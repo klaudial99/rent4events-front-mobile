@@ -16,6 +16,8 @@ export const global_func = {
   },
   mapResultForm(counter) {
     if (counter === 1) return "wynik";
+    else if (counter === 12 || counter === 13 || counter === 14)
+      return "wyników";
     else if ([2, 3, 4].includes(parseInt(String(counter).slice(-1)))) {
       return "wyniki";
     } else return "wyników";

@@ -138,6 +138,7 @@
   <div class="container">
     <vehicles-table
       :vehicles-source="vehicles"
+      :filters-source="filtersApplied"
       class="mt-4"
       @edit:vehicle="editVehicle"
       @delete:vehicle="deleteVehicle"

@@ -121,6 +121,7 @@
     <products-table
       :products-source="products"
       :categories-source="categories"
+      :filters-source="filtersApplied"
       class="mt-4"
       @edit:product="editProduct"
       @delete:product="deleteProduct"

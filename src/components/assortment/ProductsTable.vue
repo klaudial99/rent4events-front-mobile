@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="table-responsive">
+    <div
+      v-if="productsSource && productsSource.length > 0"
+      class="table-responsive"
+    >
       <table class="table table-hover align-middle">
         <thead>
           <tr>
@@ -159,6 +162,14 @@
         </tbody>
       </table>
     </div>
+    <no-results-filter
+      v-else-if="filtersSource && productsSource && productsSource.length === 0"
+    />
+    <no-results
+      v-else-if="
+        !filtersSource && productsSource && productsSource.length === 0
+      "
+    />
 
     <div class="modal fade" tabindex="-1" id="productDeleteModal">
       <div class="modal-dialog modal-dialog-centered">
@@ -212,6 +223,8 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { helpers, integer, required } from "@vuelidate/validators";
+import NoResultsFilter from "@/components/other/NoResultsFilter";
+import NoResults from "@/components/other/NoResults";
 
 export default {
   name: "ProductsTable",
@@ -221,6 +234,11 @@ export default {
   props: {
     productsSource: Array,
     categoriesSource: Array,
+    filtersSource: Boolean,
+  },
+  components: {
+    NoResultsFilter,
+    NoResults,
   },
   data() {
     return {

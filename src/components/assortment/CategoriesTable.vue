@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="table-responsive">
+    <div
+      v-if="categoriesSource && categoriesSource.length > 0"
+      class="table-responsive"
+    >
       <table class="table table-hover align-middle">
         <thead>
           <tr>
@@ -73,6 +76,8 @@
       </table>
     </div>
 
+    <no-results v-else-if="categoriesSource && categoriesSource.length === 0" />
+
     <div class="modal fade" tabindex="-1" id="categoryDeleteModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -127,6 +132,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
+import NoResults from "@/components/other/NoResults";
 
 export default {
   name: "CategoriesTable",
@@ -135,6 +141,9 @@ export default {
   },
   props: {
     categoriesSource: Array,
+  },
+  components: {
+    NoResults,
   },
   data() {
     return {

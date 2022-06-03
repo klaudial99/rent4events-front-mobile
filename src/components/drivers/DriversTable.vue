@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="table-responsive">
+    <div
+      v-if="driversSource && driversSource.length > 0"
+      class="table-responsive"
+    >
       <table class="table table-hover align-middle">
         <thead>
           <tr>
@@ -107,6 +110,8 @@
       </table>
     </div>
 
+    <no-results v-else-if="driversSource && driversSource.length === 0" />
+
     <div class="modal fade" tabindex="-1" id="driverDeleteModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -164,9 +169,10 @@ import useVuelidate from "@vuelidate/core";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { helpers, required } from "@vuelidate/validators";
+import NoResults from "@/components/other/NoResults";
 export default {
   name: "DriversTable",
-  components: { Datepicker },
+  components: { Datepicker, NoResults },
   setup() {
     return { v$: useVuelidate() };
   },

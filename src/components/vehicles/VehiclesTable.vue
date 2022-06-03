@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="table-responsive">
+    <div
+      v-if="vehiclesSource && vehiclesSource.length > 0"
+      class="table-responsive"
+    >
       <table class="table table-hover align-middle">
         <thead>
           <tr>
@@ -166,6 +169,15 @@
       </table>
     </div>
 
+    <no-results-filter
+      v-else-if="filtersSource && vehiclesSource && vehiclesSource.length === 0"
+    />
+    <no-results
+      v-else-if="
+        !filtersSource && vehiclesSource && vehiclesSource.length === 0
+      "
+    />
+
     <div class="modal fade" tabindex="-1" id="vehicleDeleteModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -222,6 +234,8 @@
 import useVuelidate from "@vuelidate/core";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import NoResults from "@/components/other/NoResults";
+import NoResultsFilter from "@/components/other/NoResultsFilter";
 import {
   alpha,
   alphaNum,
@@ -232,12 +246,13 @@ import {
 
 export default {
   name: "VehiclesTable",
-  components: { Datepicker },
+  components: { Datepicker, NoResults, NoResultsFilter },
   setup() {
     return { v$: useVuelidate() };
   },
   props: {
     vehiclesSource: Array,
+    filtersSource: Boolean,
   },
   data() {
     return {

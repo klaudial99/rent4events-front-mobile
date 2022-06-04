@@ -22,7 +22,12 @@
     </div>
     <div class="row mt-4 gy-2">
       <div v-for="prod in products" :key="prod.productId" class="col-3">
-        <product-tile-offer :product-source="prod" class="mx-2" />
+        <product-tile-offer
+          v-if="cart"
+          :product-source="prod"
+          :cart-id="cart.orderId"
+          class="mx-2"
+        />
       </div>
     </div>
   </div>

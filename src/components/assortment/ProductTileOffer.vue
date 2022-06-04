@@ -33,12 +33,22 @@
       v-if="units === 0"
       class="btn btn-main btn-no-style w-100 mt-2"
       type="button"
-      @click="units++"
+      @click="
+        units++;
+        updateCartWithTimeout();
+      "
     >
       <font-awesome-icon :icon="['fa', 'cart-shopping']" />
     </button>
     <div v-else class="input-cart w-100 mt-2 d-flex">
-      <button type="button" class="btn btn-no-style btn-cart" @click="units--">
+      <button
+        type="button"
+        class="btn btn-no-style btn-cart"
+        @click="
+          units--;
+          updateCartWithTimeout();
+        "
+      >
         <font-awesome-icon :icon="['fa', 'minus']" />
       </button>
       <input
@@ -47,11 +57,15 @@
         min="0"
         :max="productSource.availableInDateRange"
         class="flex-fill fw-500 number-text"
+        @change="updateCartWithTimeout"
       />
       <button
         type="button"
         class="btn btn-no-style btn-cart"
-        @click="units++"
+        @click="
+          units++;
+          updateCartWithTimeout();
+        "
         :class="{ disabled: units >= productSource.availableInDateRange }"
       >
         <font-awesome-icon :icon="['fa', 'plus']" />
@@ -65,11 +79,48 @@ export default {
   name: "ProductTileOffer",
   props: {
     productSource: Object,
+    cartId: Number,
   },
   data() {
     return {
       units: 0,
+      changeTime: new Date(),
     };
+  },
+  methods: {
+    updateCart() {
+      const url = `${this.apiURL}api/Orders/order/${this.cartId}/product/${this.productSource.productId}`;
+      const token = this.$store.getters.getToken;
+
+      const product = {
+        quantity: this.units,
+      };
+
+      this.axios
+        .put(url, product, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+          console.log(
+            "PRODUKT: ",
+            response.data.productId,
+            " SZTUKI: ",
+            response.data.quantity
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateCartWithTimeout() {
+      this.changeTime = new Date();
+      console.log("PRZYPISANIE DATY");
+      setTimeout(() => {
+        const newTime = new Date();
+        if (newTime - this.changeTime > 2000) {
+          this.updateCart();
+          this.changeTime = newTime;
+        }
+      }, 2000);
+    },
   },
   watch: {
     units: function () {

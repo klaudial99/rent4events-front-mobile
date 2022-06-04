@@ -35,11 +35,30 @@ export const global_func = {
 
     return `${day}/${month}/${year}`;
   },
+  datepickerRangeFormat(date) {
+    const dayStart = date[0].getDate();
+    let monthStart = date[0].getMonth() + 1;
+    if (monthStart < 10) monthStart = 0 + monthStart.toString();
+    const yearStart = date[0].getFullYear();
+
+    const dayEnd = date[1].getDate();
+    let monthEnd = date[1].getMonth() + 1;
+    if (monthEnd < 10) monthEnd = 0 + monthEnd.toString();
+    const yearEnd = date[1].getFullYear();
+
+    return `${dayStart}/${monthStart}/${yearStart} - ${dayEnd}/${monthEnd}/${yearEnd}`;
+  },
   formatFilters(filters) {
     let filtersFormatted = [];
     for (const key in filters) {
       if (filters[key] !== "") filtersFormatted.push(key + "=" + filters[key]);
     }
     return filtersFormatted.join();
+  },
+  getPhotoSource(imageName) {
+    return "https://rent-4-events.s3.eu-central-1.amazonaws.com/" + imageName;
+  },
+  formatPrice(price) {
+    return price.toFixed(2);
   },
 };

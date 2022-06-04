@@ -21,6 +21,7 @@ import {
   faPen,
   faTrash,
   faPlus,
+  faMinus,
   faEyeSlash,
   faXmark,
   faCheck,
@@ -37,6 +38,7 @@ library.add(faArrowRight);
 library.add(faPen);
 library.add(faTrash);
 library.add(faPlus);
+library.add(faMinus);
 library.add(faEyeSlash);
 library.add(faXmark);
 library.add(faCheck);

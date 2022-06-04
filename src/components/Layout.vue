@@ -1,9 +1,9 @@
 <template>
   <div class="layout">
-    <navbar-guest v-if="this.$store.getters.getRole === 'guest'" />
-    <navbar-client v-else-if="this.$store.getters.getRole === 'client'" />
-    <navbar-driver v-else-if="this.$store.getters.getRole === 'driver'" />
-    <navbar-manager v-else-if="this.$store.getters.getRole === 'manager'" />
+    <navbar-client v-if="this.$store.getters.getRole === 'Customer'" />
+    <navbar-driver v-else-if="this.$store.getters.getRole === 'Driver'" />
+    <navbar-manager v-else-if="this.$store.getters.getRole === 'Manager'" />
+    <navbar-guest v-else />
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />

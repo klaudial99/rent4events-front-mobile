@@ -8,7 +8,7 @@ export default createStore({
     lastName: "",
     token: "",
     refreshToken: "",
-    role: "guest",
+    role: "",
     showAfterRegisterModal: false,
     vehicleTypeOptions: ["BUS", "TRUCK"],
     vehicleStatusOptions: ["WORKING", "AT_WORKSHOP", "NOT_WORKING"],

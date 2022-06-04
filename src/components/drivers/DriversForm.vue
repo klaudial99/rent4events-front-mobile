@@ -122,7 +122,9 @@
             class="form-control"
             id="driverSalaryInput"
             v-model="newDriver.salary"
-            :class="{ 'error-input': v$.newDriver.salary.$error }"
+            :class="{
+              'error-input': v$.newDriver.salary.$error || wrongSalary,
+            }"
             @focus="clearStatusSalary"
             @keypress="clearStatusSalary"
           />

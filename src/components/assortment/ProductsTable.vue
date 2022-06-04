@@ -87,7 +87,7 @@
               <div v-if="hasImage" class="position-relative">
                 <img
                   class="product-photo"
-                  :src="getPhotoSource(prod.images[0].url)"
+                  :src="this.$func_global.getPhotoSource(prod.images[0].url)"
                   alt="Product photo"
                 />
                 <button
@@ -114,7 +114,7 @@
             <td v-else-if="prod.images[0]">
               <img
                 class="product-photo"
-                :src="getPhotoSource(prod.images[0].url)"
+                :src="this.$func_global.getPhotoSource(prod.images[0].url)"
                 alt="Product photo"
               />
             </td>
@@ -327,8 +327,12 @@ export default {
       if (this.changingImage) {
         if (this.editedProductNewData.imageFile == null) {
           await this.deletePhoto();
-        } else await this.editPhoto();
+        } else {
+          await this.editPhoto();
+        }
       }
+
+      this.editedProductNewData.imageFile = null;
 
       this.axios
         .put(url, this.editedProductNewData, {
@@ -361,10 +365,8 @@ export default {
           console.log(error);
         });
     },
-    getPhotoSource(imageName) {
-      return "https://rent-4-events.s3.eu-central-1.amazonaws.com/" + imageName;
-    },
     changePhoto(e) {
+      this.changingImage = true;
       const file = e.target.files[0];
       if (e.target.id === "newImageFileInput" && file) {
         this.editedProductNewData.imageFile = file;
@@ -380,7 +382,7 @@ export default {
 
       let formData = new FormData();
       formData.append("ImageFile", this.editedProductNewData.imageFile);
-
+      console.log("blabla", formData);
       return this.axios
         .put(url, formData, {
           headers: { Authorization: `Bearer ${token}` },

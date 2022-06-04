@@ -31,6 +31,8 @@
                 id="newEmploymentDateInput"
                 startingView="day"
                 locale="pl"
+                @focus="clearStatusEmploymentDate"
+                @keypress="clearStatusEmploymentDate"
               ></Datepicker>
             </td>
             <td v-else>
@@ -46,6 +48,8 @@
                 id="newBirthDateInput"
                 startingView="day"
                 locale="pl"
+                @focus="clearStatusBirthDate"
+                @keypress="clearStatusBirthDate"
               ></Datepicker>
             </td>
             <td v-else>{{ this.$func_global.formatDate(driver.birthDate) }}</td>
@@ -59,8 +63,11 @@
                 id="newSalaryInput"
                 v-model="editedDriverNewData.salary"
                 :class="{
-                  'error-input': v$.editedDriverNewData.salary.$error,
+                  'error-input':
+                    v$.editedDriverNewData.salary.$error || wrongSalary,
                 }"
+                @focus="clearStatusSalary"
+                @keypress="clearStatusSalary"
               />
             </td>
             <td v-else>
@@ -189,6 +196,10 @@ export default {
         birthDate: "",
         salary: "",
       },
+
+      wrongBirthDate: false,
+      wrongEmploymentDate: false,
+      wrongSalary: false,
     };
   },
   validations() {
@@ -254,7 +265,23 @@ export default {
           this.clearNewDriverData();
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "107"
+          )
+            this.wrongBirthDate = true;
+
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "108"
+          )
+            this.wrongEmploymentDate = true;
+
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "111"
+          )
+            this.wrongSalary = true;
         });
     },
     async deleteDriver() {
@@ -269,6 +296,15 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    clearStatusBirthDate() {
+      this.wrongBirthDate = false;
+    },
+    clearStatusEmploymentDate() {
+      this.wrongEmploymentDate = false;
+    },
+    clearStatusSalary() {
+      this.wrongSalary = false;
     },
   },
 };

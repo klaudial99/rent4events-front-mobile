@@ -84,18 +84,21 @@
             <td v-else>{{ prod.description }}</td>
 
             <td v-if="editMode && editedProduct === prod">
-              <div v-if="hasImage" class="position-relative">
+              <div
+                v-if="hasImage"
+                class="position-relative img-container mx-auto"
+              >
                 <img
                   class="product-photo"
                   :src="this.$func_global.getPhotoSource(prod.images[0].url)"
                   alt="Product photo"
                 />
                 <button
-                  class="btn btn-no-style position-absolute delete-picture"
+                  class="btn btn-no-style position-absolute delete-picture d-flex justify-content-center align-items-center"
                 >
                   <font-awesome-icon
                     :icon="['fa', 'xmark']"
-                    size="xs"
+                    size="2xs"
                     class="delete-icon"
                     @click="deletePhotoInTable"
                   />
@@ -413,19 +416,35 @@ export default {
 
 .product-photo {
   height: 3rem;
+  width: auto;
 }
 
 .delete-picture {
-  top: -10px;
-  right: -10px;
-  height: 20px;
-  width: 20px;
-  background-color: var(--PRIMARY-LIGHTER);
+  top: -13px;
+  right: -13px;
+  height: 26px;
+  width: 26px;
+  background-color: white;
+  opacity: 95%;
+  border: 1px solid var(--SECONDARY);
   border-radius: 50%;
-  display: inline-block;
+}
+
+.delete-picture:hover,
+.delete-picture:focus {
+  background-color: var(--SECONDARY);
 }
 
 .delete-icon {
+  color: var(--SECONDARY);
+}
+
+.delete-picture:hover .delete-icon,
+.delete-picture:focus .delete-icon {
   color: white;
+}
+
+.img-container {
+  width: fit-content;
 }
 </style>

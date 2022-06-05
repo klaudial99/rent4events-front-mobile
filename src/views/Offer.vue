@@ -15,7 +15,10 @@
             id="offerFromToDates"
             startingView="day"
             locale="pl"
-            @update:modelValue="getOffer(true)"
+            @update:modelValue="
+              getOffer(true);
+              changeOrderDates();
+            "
           ></Datepicker>
         </div>
       </div>
@@ -26,6 +29,10 @@
           v-if="cart"
           :product-source="prod"
           :cart-id="cart.orderId"
+          :already-added="
+            productsInCart[prod.productId] ? productsInCart[prod.productId] : 0
+          "
+          @update:cart="getCart"
           class="mx-2"
         />
       </div>
@@ -112,7 +119,22 @@ export default {
         .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.cart = response.data;
-          console.log(this.cart);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    changeOrderDates() {
+      const url = `${this.apiURL}api/Orders/${this.cart.orderId}`;
+      const token = this.$store.getters.getToken;
+      const newDates = {
+        startDate: this.userParams.datesRange[0],
+        endDate: this.userParams.datesRange[1],
+      };
+      this.axios
+        .put(url, newDates, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+          this.cart = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -126,6 +148,13 @@ export default {
   computed: {
     filterString() {
       return this.$func_global.formatFilters(this.userParams.filters);
+    },
+    productsInCart() {
+      let products = {};
+      for (const item of this.cart.orderPositions) {
+        products[item.productId] = item.quantity;
+      }
+      return products;
     },
   },
 };

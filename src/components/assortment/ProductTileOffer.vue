@@ -3,6 +3,7 @@
     <img
       v-if="productSource.images[0]"
       class="tile-photo"
+      :class="{ 'unavailable-photo': this.tooMuchInCart }"
       :src="this.$func_global.getPhotoSource(productSource.images[0].url)"
       alt="Product photo"
     />
@@ -25,12 +26,15 @@
       >
       / dzień
     </div>
-    <div class="text-start category-text ms-2 my-1">
-      Dostępnych: {{ productSource.availableInDateRange }}
+    <div class="d-flex justify-content-between category-text ms-2 my-1">
+      <span> Dostępnych: {{ productSource.availableInDateRange }} </span>
+      <span v-if="tooMuchInCart" class="error-cart">
+        W koszyku: {{ alreadyAdded }}
+      </span>
     </div>
 
     <button
-      v-if="units === 0"
+      v-if="units === 0 && alreadyAdded === 0"
       class="btn btn-main btn-no-style w-100 mt-2"
       type="button"
       @click="
@@ -40,6 +44,17 @@
     >
       <font-awesome-icon :icon="['fa', 'cart-shopping']" />
     </button>
+    <button
+      v-else-if="tooMuchInCart"
+      class="btn unavailable-button btn-no-style w-100 mt-2"
+      type="button"
+      @click="deleteOverflow"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+    >
+      Usuń nadmiar
+    </button>
+
     <div v-else class="input-cart w-100 mt-2 d-flex">
       <button
         type="button"
@@ -80,6 +95,7 @@ export default {
   props: {
     productSource: Object,
     cartId: Number,
+    alreadyAdded: Number,
   },
   data() {
     return {
@@ -96,7 +112,7 @@ export default {
         quantity: this.units,
       };
 
-      this.axios
+      return this.axios
         .put(url, product, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           console.log(
@@ -112,14 +128,31 @@ export default {
     },
     updateCartWithTimeout() {
       this.changeTime = new Date();
-      console.log("PRZYPISANIE DATY");
       setTimeout(() => {
         const newTime = new Date();
-        if (newTime - this.changeTime > 2000) {
+        if (newTime - this.changeTime > 1000) {
           this.updateCart();
           this.changeTime = newTime;
         }
-      }, 2000);
+      }, 1000);
+    },
+    setUnitsOnOfferEnter() {
+      if (0 < this.alreadyAdded <= this.productSource.availableInDateRange)
+        this.units = this.alreadyAdded;
+    },
+    async deleteOverflow() {
+      console.log("USUWAM");
+      this.units = this.productSource.availableInDateRange;
+      await this.updateCart();
+      this.$emit("update:cart");
+    },
+  },
+  mounted() {
+    this.setUnitsOnOfferEnter();
+  },
+  computed: {
+    tooMuchInCart() {
+      return this.alreadyAdded > this.productSource.availableInDateRange;
     },
   },
   watch: {
@@ -173,7 +206,7 @@ export default {
 }
 
 .category-text {
-  color: var(--BLACK-LIGHTER);
+  color: var(--GREY-DARKER);
   font-size: smaller;
 }
 
@@ -208,5 +241,22 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.unavailable-photo {
+  filter: grayscale(100%);
+}
+
+.unavailable-button {
+  background-color: var(--GREY-DARKER);
+  color: white !important;
+  border-radius: 10px;
+  border: 2px solid var(--GREY-DARKER);
+  padding: 0.3rem 1rem;
+  font-size: 1rem;
+}
+
+.error-cart {
+  color: red;
 }
 </style>

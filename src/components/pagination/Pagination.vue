@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 .pages-navigation.disabled {
-  color: var(--BLACK-LIGHTER);
+  color: var(--GREY-DARKER);
 }
 
 .pages-navigation.disabled:hover {

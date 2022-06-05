@@ -223,7 +223,7 @@ router-link {
 }
 
 .text-disabled {
-  color: var(--BLACK-LIGHTER);
+  color: var(--GREY-DARKER);
 }
 
 .fs-smaller {

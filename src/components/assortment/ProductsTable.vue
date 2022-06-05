@@ -33,7 +33,7 @@
                 @keypress="clearStatus"
               />
             </td>
-            <td v-else>{{ prod.name }}</td>
+            <td v-else class="w-10">{{ prod.name }}</td>
 
             <td v-if="editMode && editedProduct === prod">
               <select
@@ -50,7 +50,7 @@
                 </option>
               </select>
             </td>
-            <td v-else>{{ prod.categoryName }}</td>
+            <td v-else class="w-10">{{ prod.categoryName }}</td>
 
             <td v-if="editMode && editedProduct === prod">
               <input
@@ -65,7 +65,7 @@
                 }"
               />
             </td>
-            <td v-else>{{ prod.quantity }}</td>
+            <td v-else class="w-10">{{ prod.quantity }}</td>
 
             <td>{{ prod.availableToday }}</td>
 
@@ -81,7 +81,7 @@
                 }"
               />
             </td>
-            <td v-else>{{ prod.description }}</td>
+            <td v-else class="text-start w-30">{{ prod.description }}</td>
 
             <td v-if="editMode && editedProduct === prod">
               <div
@@ -116,14 +116,17 @@
             </td>
             <td v-else-if="prod.images[0]">
               <img
-                class="product-photo"
+                class="product-photo w-10"
                 :src="this.$func_global.getPhotoSource(prod.images[0].url)"
                 alt="Product photo"
               />
             </td>
             <td v-else>-</td>
 
-            <td v-if="editMode && editedProduct === prod" class="text-start">
+            <td
+              v-if="editMode && editedProduct === prod"
+              class="text-start w-10"
+            >
               <button class="btn table-btn">
                 <font-awesome-icon
                   :icon="['fa', 'xmark']"
@@ -141,7 +144,7 @@
                 />
               </button>
             </td>
-            <td v-else class="text-start">
+            <td v-else class="text-start w-10">
               <button class="btn table-btn">
                 <font-awesome-icon
                   :icon="['fa', 'pen']"
@@ -385,7 +388,7 @@ export default {
 
       let formData = new FormData();
       formData.append("ImageFile", this.editedProductNewData.imageFile);
-      console.log("blabla", formData);
+
       return this.axios
         .put(url, formData, {
           headers: { Authorization: `Bearer ${token}` },
@@ -446,5 +449,17 @@ export default {
 
 .img-container {
   width: fit-content;
+}
+
+@media (min-width: 992px) {
+  td.w-10 {
+    min-width: 10vw;
+  }
+  td.w-30 {
+    min-width: 30vw;
+  }
+  .table-responsive {
+    overflow-x: hidden;
+  }
 }
 </style>

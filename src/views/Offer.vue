@@ -15,10 +15,7 @@
             id="offerFromToDates"
             startingView="day"
             locale="pl"
-            @update:modelValue="
-              getOffer(true);
-              changeOrderDates();
-            "
+            @update:modelValue="updateDateDatepicker"
           ></Datepicker>
         </div>
       </div>
@@ -44,6 +41,7 @@
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import ProductTileOffer from "@/components/assortment/ProductTileOffer";
+import moment from "moment";
 export default {
   name: "Offer",
   components: { Datepicker, ProductTileOffer },
@@ -119,6 +117,15 @@ export default {
         .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.cart = response.data;
+          const today = new Date();
+          const tomorrow = new Date(today);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          if (moment(response.data.startDate).isSameOrAfter(today, "day"))
+            this.userParams.datesRange = [
+              response.data.startDate,
+              response.data.endDate,
+            ];
+          else this.userParams.datesRange = [today, tomorrow];
         })
         .catch((error) => {
           console.log(error);
@@ -131,6 +138,7 @@ export default {
         startDate: this.userParams.datesRange[0],
         endDate: this.userParams.datesRange[1],
       };
+
       this.axios
         .put(url, newDates, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
@@ -139,6 +147,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    updateDateDatepicker() {
+      if (this.userParams.datesRange !== null) {
+        this.changeOrderDates();
+        this.getOffer(true);
+      }
     },
   },
   mounted() {

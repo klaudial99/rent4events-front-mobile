@@ -55,8 +55,6 @@
         class="btn unavailable-button btn-no-style w-100 mt-2"
         type="button"
         @click="deleteOverflow"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
       >
         Usuń nadmiar
       </button>
@@ -188,39 +186,6 @@ export default {
   }
 }
 
-.product-tile {
-  border-radius: 10px;
-  height: 100%;
-}
-
-.product-tile:hover {
-  background-color: var(--GREY-LIGHT);
-}
-
-.input-cart {
-  border-radius: 10px;
-  background-color: var(--GREY-LIGHT);
-  padding: 0.3rem 1rem;
-  border: 2px solid var(--GREY-LIGHT);
-}
-
-@media (min-width: 1px) and (max-width: 400px) {
-  .input-cart {
-    padding: 0.3rem 0;
-  }
-}
-
-@media (min-width: 401px) and (max-width: 576px) {
-  .input-cart {
-    padding: 0.3rem 0.5rem;
-  }
-}
-
-.product-tile:hover .input-cart,
-.product-tile:hover input {
-  background-color: white;
-}
-
 .btn-cart {
   color: var(--PRIMARY);
   padding: 0 0.5rem;
@@ -228,19 +193,6 @@ export default {
 
 .btn-cart:hover {
   background-color: var(--GREY-LIGHT);
-}
-
-.name-text {
-  font-size: larger;
-}
-
-.category-text {
-  color: var(--GREY-DARKER);
-  font-size: smaller;
-}
-
-.number-text {
-  color: var(--PRIMARY);
 }
 
 .btn-main {
@@ -270,22 +222,5 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-.unavailable-photo {
-  filter: grayscale(100%);
-}
-
-.unavailable-button {
-  background-color: var(--GREY-DARKER);
-  color: white !important;
-  border-radius: 10px;
-  border: 2px solid var(--GREY-DARKER);
-  padding: 0.3rem 1rem;
-  font-size: 1rem;
-}
-
-.error-cart {
-  color: red;
 }
 </style>

@@ -51,7 +51,11 @@ export const global_func = {
   formatFilters(filters) {
     let filtersFormatted = [];
     for (const key in filters) {
-      if (filters[key] !== "") filtersFormatted.push(key + "=" + filters[key]);
+      if (filters[key] !== "") {
+        if (key === "name")
+          filtersFormatted.push(key + "=*" + filters[key] + "/i");
+        else filtersFormatted.push(key + "=" + filters[key]);
+      }
     }
     return filtersFormatted.join();
   },

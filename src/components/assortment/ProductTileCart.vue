@@ -30,11 +30,11 @@
 
     <div class="col-3">
       <div v-if="tooMuchInCart" class="d-flex">
-        <div class="error-cart align-self-center me-md-3">
+        <div class="error-cart align-self-center px-2">
           {{ orderPosition.quantity }}
         </div>
         <button
-          class="btn btn-no-style category-text text-nowrap"
+          class="btn btn-no-style category-text text-nowrap w-100"
           type="button"
           @click="deleteOverflow"
           data-bs-toggle="tooltip"
@@ -138,10 +138,7 @@ export default {
             " SZTUKI: ",
             response.data.quantity
           );
-          if (this.units === 0) {
-            this.$emit("update:cart");
-          }
-          this.orderPosition = response.data;
+          this.$emit("update:cart");
         })
         .catch((error) => {
           console.log(error);

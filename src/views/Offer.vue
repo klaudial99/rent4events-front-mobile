@@ -248,7 +248,7 @@ export default {
         });
     },
     updateDateDatepicker() {
-      if (this.userParams.datesRange !== null) {
+      if (this.userParams.datesRange !== null && this.datesRange !== []) {
         this.changeOrderDates();
         this.getOffer(true);
       }

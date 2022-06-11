@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="row mt-4 gy-2">
-      <div v-for="prod in products" :key="prod.productId" class="col-3">
+      <div
+        v-for="prod in products"
+        :key="prod.productId"
+        class="col-6 col-sm-6 col-md-4 col-lg-3"
+      >
         <product-tile-offer
           v-if="cart"
           :product-source="prod"

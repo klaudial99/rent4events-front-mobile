@@ -1,90 +1,97 @@
 <template>
-  <div class="product-tile pb-2 pt-3 px-3">
-    <img
-      v-if="productSource.images[0]"
-      class="tile-photo"
-      :class="{ 'unavailable-photo': this.tooMuchInCart }"
-      :src="this.$func_global.getPhotoSource(productSource.images[0].url)"
-      alt="Product photo"
-    />
-    <img
-      v-else
-      class="tile-photo"
-      src="@/assets/no-image-icon.png"
-      alt="Product photo"
-    />
-    <div class="text-start category-text ms-2 mt-2">
-      {{ productSource.categoryName }}
-    </div>
-    <div class="text-start name-text ms-2">{{ productSource.name }}</div>
-    <div class="text-start ms-2">
-      <span class="fw-500"
-        >{{
-          this.$func_global.formatPrice(productSource.priceInDateRange)
-        }}
-        zł</span
-      >
-      / dzień
-    </div>
-    <div class="d-flex justify-content-between category-text ms-2 my-1">
-      <span> Dostępnych: {{ productSource.availableInDateRange }} </span>
-      <span v-if="tooMuchInCart" class="error-cart">
-        W koszyku: {{ alreadyAdded }}
-      </span>
-    </div>
-
-    <button
-      v-if="units === 0 && alreadyAdded === 0"
-      class="btn btn-main btn-no-style w-100 mt-2"
-      type="button"
-      @click="
-        units++;
-        updateCartWithTimeout();
-      "
-    >
-      <font-awesome-icon :icon="['fa', 'cart-shopping']" />
-    </button>
-    <button
-      v-else-if="tooMuchInCart"
-      class="btn unavailable-button btn-no-style w-100 mt-2"
-      type="button"
-      @click="deleteOverflow"
-      data-bs-toggle="tooltip"
-      data-bs-placement="top"
-    >
-      Usuń nadmiar
-    </button>
-
-    <div v-else class="input-cart w-100 mt-2 d-flex">
-      <button
-        type="button"
-        class="btn btn-no-style btn-cart"
-        @click="
-          units--;
-          updateCartWithTimeout();
-        "
-      >
-        <font-awesome-icon :icon="['fa', 'minus']" />
-      </button>
-      <input
-        v-model="units"
-        type="number"
-        min="0"
-        :max="productSource.availableInDateRange"
-        class="flex-fill fw-500 number-text"
-        @change="updateCartWithTimeout"
+  <div
+    class="product-tile pb-2 pt-3 px-3 d-flex flex-column justify-content-between"
+  >
+    <div class="top">
+      <img
+        v-if="productSource.images[0]"
+        class="tile-photo"
+        :class="{ 'unavailable-photo': this.tooMuchInCart }"
+        :src="this.$func_global.getPhotoSource(productSource.images[0].url)"
+        alt="Product photo"
       />
+      <img
+        v-else
+        class="tile-photo"
+        src="@/assets/no-image-icon.png"
+        alt="Product photo"
+      />
+      <div class="text-start category-text ms-2 mt-2">
+        {{ productSource.categoryName }}
+      </div>
+      <div class="text-start name-text ms-2">{{ productSource.name }}</div>
+    </div>
+
+    <div class="bottom">
+      <div class="text-start ms-2">
+        <span class="fw-500"
+          >{{
+            this.$func_global.formatPrice(productSource.priceInDateRange)
+          }}
+          zł</span
+        >
+        / dzień
+      </div>
+      <div class="d-flex justify-content-between category-text ms-2 my-1">
+        <span> Dostępnych: {{ productSource.availableInDateRange }} </span>
+        <span v-if="tooMuchInCart" class="error-cart">
+          W koszyku: {{ alreadyAdded }}
+        </span>
+      </div>
+
       <button
+        v-if="units === 0"
+        class="btn btn-main btn-no-style w-100 mt-2"
         type="button"
-        class="btn btn-no-style btn-cart"
         @click="
           units++;
           updateCartWithTimeout();
         "
-        :class="{ disabled: units >= productSource.availableInDateRange }"
       >
-        <font-awesome-icon :icon="['fa', 'plus']" />
+        <font-awesome-icon :icon="['fa', 'cart-shopping']" />
       </button>
+      <button
+        v-else-if="tooMuchInCart"
+        class="btn unavailable-button btn-no-style w-100 mt-2"
+        type="button"
+        @click="deleteOverflow"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+      >
+        Usuń nadmiar
+      </button>
+
+      <div v-else class="input-cart w-100 mt-2 d-flex">
+        <button
+          type="button"
+          class="btn btn-no-style btn-cart"
+          @click="
+            units--;
+            updateCartWithTimeout();
+          "
+        >
+          <font-awesome-icon :icon="['fa', 'minus']" />
+        </button>
+        <input
+          v-model="units"
+          type="number"
+          min="0"
+          :max="productSource.availableInDateRange"
+          class="flex-fill fw-500 number-text"
+          @change="updateCartWithTimeout"
+        />
+        <button
+          type="button"
+          class="btn btn-no-style btn-cart"
+          @click="
+            units++;
+            updateCartWithTimeout();
+          "
+          :class="{ disabled: units >= productSource.availableInDateRange }"
+        >
+          <font-awesome-icon :icon="['fa', 'plus']" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -167,13 +174,23 @@ export default {
 </script>
 
 <style scoped>
-.tile-photo {
-  height: 9rem;
-  width: auto;
+@media (min-width: 1px) and (max-width: 767px) {
+  .tile-photo {
+    height: 5rem;
+    width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .tile-photo {
+    height: 8rem;
+    width: auto;
+  }
 }
 
 .product-tile {
   border-radius: 10px;
+  height: 100%;
 }
 
 .product-tile:hover {
@@ -185,6 +202,18 @@ export default {
   background-color: var(--GREY-LIGHT);
   padding: 0.3rem 1rem;
   border: 2px solid var(--GREY-LIGHT);
+}
+
+@media (min-width: 1px) and (max-width: 400px) {
+  .input-cart {
+    padding: 0.3rem 0;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 576px) {
+  .input-cart {
+    padding: 0.3rem 0.5rem;
+  }
 }
 
 .product-tile:hover .input-cart,

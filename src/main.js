@@ -18,6 +18,7 @@ import {
   faPeopleGroup,
   faBoxesPacking,
   faArrowRight,
+  faArrowLeft,
   faPen,
   faTrash,
   faPlus,
@@ -35,6 +36,7 @@ library.add(faTruck);
 library.add(faPeopleGroup);
 library.add(faBoxesPacking);
 library.add(faArrowRight);
+library.add(faArrowLeft);
 library.add(faPen);
 library.add(faTrash);
 library.add(faPlus);

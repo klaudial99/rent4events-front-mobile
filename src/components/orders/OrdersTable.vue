@@ -15,7 +15,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in ordersSource" :key="order.orderId">
+          <tr
+            v-for="order in ordersSource"
+            :key="order.orderId"
+            @click="openOrderDetails(order)"
+          >
             <td>{{ this.$func_global.formatDate(order.startDate) }}</td>
             <td>{{ this.$func_global.formatDate(order.endDate) }}</td>
             <td>{{ this.$func_global.mapOrderStatusName(order.status) }}</td>
@@ -139,6 +143,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    openOrderDetails(order) {
+      this.$router.push({
+        name: "Order",
+        params: { orderId: order.orderId },
+      });
     },
   },
 };

@@ -167,6 +167,7 @@ export default {
     getOffer(firstPage) {
       const url = `${this.apiURL}api/Products/offer`;
       const token = this.$store.getters.getToken;
+
       const requestParams = {
         Page: firstPage ? 1 : this.userParams.goToPage,
         PageSize: this.userParams.itemsPerPage,
@@ -176,7 +177,7 @@ export default {
         ToDate: this.userParams.datesRange[1],
       };
 
-      this.axios
+      return this.axios
         .get(url, {
           params: requestParams,
           headers: { Authorization: `Bearer ${token}` },
@@ -209,7 +210,7 @@ export default {
     getCart() {
       const url = `${this.apiURL}api/Orders/template`;
       const token = this.$store.getters.getToken;
-      this.axios
+      return this.axios
         .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.cart = response.data;
@@ -263,9 +264,9 @@ export default {
       this.userParams.orderBy = "";
     },
   },
-  mounted() {
-    this.getOffer(true);
-    this.getCart();
+  async mounted() {
+    await this.getCart();
+    await this.getOffer(true);
   },
   computed: {
     filtersApplied() {

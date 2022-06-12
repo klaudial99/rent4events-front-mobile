@@ -27,7 +27,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Offer' }"
-              to=""
+              :to="{ name: 'Offer' }"
               >OFERTA</router-link
             >
           </li>
@@ -35,7 +35,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Orders' }"
-              to=""
+              :to="{ name: 'Orders' }"
               >ZAMÓWIENIA</router-link
             >
           </li>
@@ -43,7 +43,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Vehicles' }"
-              to=""
+              :to="{ name: 'Vehicles' }"
               >POJAZDY</router-link
             >
           </li>
@@ -51,7 +51,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Courses' }"
-              to=""
+              :to="{ name: 'Courses' }"
               >MOJE KURSY</router-link
             >
           </li>

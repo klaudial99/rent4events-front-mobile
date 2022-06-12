@@ -39,4 +39,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+* {
+  color: var(--BLACK);
+}
+</style>

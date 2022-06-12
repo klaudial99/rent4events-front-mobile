@@ -9,6 +9,7 @@ import Cart from "@/views/Cart";
 import Offer from "@/views/Offer";
 import Orders from "@/views/Orders";
 import Order from "@/views/Order";
+import Courses from "@/views/Courses";
 
 const routes = [
   {
@@ -70,6 +71,11 @@ const routes = [
     name: "Order",
     component: Order,
     props: true,
+  },
+  {
+    path: "/courses",
+    name: "Courses",
+    component: Courses,
   },
 ];
 

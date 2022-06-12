@@ -262,7 +262,6 @@ router-link {
 .btn-filters:active,
 .btn-filters.active {
   box-shadow: none;
-  background-color: var(--PRIMARY);
   color: white;
 }
 

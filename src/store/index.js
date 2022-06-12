@@ -23,6 +23,8 @@ export default createStore({
       "FOR_REALISATION",
       "IN_REALISATION",
     ],
+    courseTypeOptions: ["DELIVERY", "PICKUP"],
+    courseStatusOptions: ["PLANNED", "ON_THE_WAY", "DONE", "CANCELLED"],
     totalCost: 0,
   },
   mutations: {
@@ -55,6 +57,12 @@ export default createStore({
     },
     setOrderStatusOptions(state, value) {
       state.orderStatusOptions = value;
+    },
+    setCourseTypeOptions(state, value) {
+      state.courseTypeOptions = value;
+    },
+    setCourseStatusOptions(state, value) {
+      state.courseStatusOptions = value;
     },
   },
   getters: {
@@ -93,6 +101,12 @@ export default createStore({
     },
     getOrderStatusOptions(state) {
       return state.orderStatusOptions;
+    },
+    getCourseTypeOptions(state) {
+      return state.courseTypeOptions;
+    },
+    getCourseStatusOptions(state) {
+      return state.courseStatusOptions;
     },
   },
   actions: {},

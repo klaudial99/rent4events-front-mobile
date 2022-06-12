@@ -163,7 +163,10 @@ export default {
   },
   computed: {
     isAdmin() {
-      return this.$store.getters.getRole === "Manager";
+      return (
+        this.$store.getters.getRole === "Manager" ||
+        this.$store.getters.getRole === "Driver"
+      );
     },
   },
 };

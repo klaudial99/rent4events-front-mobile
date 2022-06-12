@@ -24,6 +24,16 @@ export const global_func = {
     else if (status === "FOR_REALISATION") return "Do realizacji";
     else if (status === "IN_REALISATION") return "W trakcie realizacji";
   },
+  mapCourseTypeName(type) {
+    if (type === "DELIVERY") return "Dostawa";
+    else if (type === "PICKUP") return "Odbiór";
+  },
+  mapCourseStatusName(status) {
+    if (status === "PLANNED") return "Zaplanowany";
+    else if (status === "ON_THE_WAY") return "W drodze";
+    else if (status === "DONE") return "Zrealizowany";
+    else if (status === "CANCELLED") return "Anulowany";
+  },
   mapResultForm(counter) {
     if (counter === 1) return "wynik";
     else if (counter === 12 || counter === 13 || counter === 14)

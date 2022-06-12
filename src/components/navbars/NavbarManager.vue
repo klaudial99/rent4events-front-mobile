@@ -27,7 +27,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Offer' }"
-              to=""
+              :to="{ name: 'Offer' }"
               >OFERTA</router-link
             >
           </li>
@@ -59,7 +59,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Courses' }"
-              to=""
+              :to="{ name: 'Courses' }"
               >KURSY</router-link
             >
           </li>

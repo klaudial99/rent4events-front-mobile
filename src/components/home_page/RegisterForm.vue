@@ -244,7 +244,7 @@ export default {
         password2: this.registerPasswordConfirm,
         firstName: this.firstName,
         lastName: this.lastName,
-        phoneNumber: this.phoneNumber,
+        phoneNo: this.phoneNumber,
       };
 
       const url = `${this.apiURL}api/Account/register`;

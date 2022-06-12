@@ -40,7 +40,7 @@
       </div>
 
       <button
-        v-if="units === 0"
+        v-if="isClient && units === 0"
         class="btn btn-main btn-no-style w-100 mt-2"
         type="button"
         @click="
@@ -51,7 +51,7 @@
         <font-awesome-icon :icon="['fa', 'cart-shopping']" />
       </button>
       <button
-        v-else-if="tooMuchInCart"
+        v-else-if="isClient && tooMuchInCart"
         class="btn unavailable-button btn-no-style w-100 mt-2"
         type="button"
         @click="deleteOverflow"
@@ -59,7 +59,7 @@
         Usuń nadmiar
       </button>
 
-      <div v-else class="input-cart w-100 mt-2 d-flex">
+      <div v-else-if="isClient" class="input-cart w-100 mt-2 d-flex">
         <button
           type="button"
           class="btn btn-no-style btn-cart"
@@ -158,6 +158,9 @@ export default {
   computed: {
     tooMuchInCart() {
       return this.alreadyAdded > this.productSource.availableInDateRange;
+    },
+    isClient() {
+      return this.$store.getters.getRole === "Customer";
     },
   },
   watch: {

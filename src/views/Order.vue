@@ -81,7 +81,10 @@
   </div>
 
   <div class="container" v-if="orderPositions">
-    <order-positions-table :order-position-source="orderPositions" class="" />
+    <order-positions-table
+      :order-position-source="orderPositions"
+      :order-source="order"
+    />
   </div>
 
   <div

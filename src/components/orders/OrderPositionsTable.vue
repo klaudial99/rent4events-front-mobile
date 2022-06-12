@@ -17,7 +17,15 @@
         <tbody>
           <tr v-for="pos in orderPositionSource" :key="pos.productId">
             <td class="text-start">{{ pos.product.name }}</td>
-            <td>{{ pos.quantity }}</td>
+            <td
+              :class="{
+                'error-cart':
+                  orderSource.status === 'PENDING' &&
+                  pos.product.availableInDateRange < pos.quantity,
+              }"
+            >
+              {{ pos.quantity }}
+            </td>
             <td>
               {{ this.$func_global.formatPrice(pos.product.priceInDateRange) }}
               zł
@@ -35,6 +43,7 @@ export default {
   name: "OrderPositionsTable",
   props: {
     orderPositionSource: Array,
+    orderSource: Object,
   },
 };
 </script>

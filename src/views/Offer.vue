@@ -67,8 +67,8 @@
   </div>
 
   <div class="container">
-    <div class="row mt-4">
-      <div class="col-12 col-sm-6 col-lg-4">
+    <div class="row mt-4 ms-0 ms-lg-4">
+      <div class="col-12 col-sm-6 col-lg-4 p-0">
         <div class="text-start">
           <label for="offerFromToDates" class="form-label">
             Okres wypożyczenia:

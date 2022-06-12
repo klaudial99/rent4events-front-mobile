@@ -98,6 +98,7 @@ export default {
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setRefreshToken", response.data.refreshToken);
           this.$store.commit("setRole", response.data.roles[0]);
+          this.$store.commit("setTotalCost", 0);
           document.getElementById("loginRegisterModalClose").click();
           if (this.$store.getters.getRole === "Customer")
             this.$router.push({ name: "Offer" });

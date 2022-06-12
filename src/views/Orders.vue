@@ -2,39 +2,7 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col text-start ms-0 ms-lg-4">
-        <h3>Kierowcy</h3>
-      </div>
-      <div class="col text-end">
-        <button
-          class="btn btn-no-style"
-          v-if="addNewDriver"
-          @click="addNewDriver = !addNewDriver"
-        >
-          <font-awesome-icon
-            :icon="['fa', 'eye-slash']"
-            size="sm"
-            class="add-hide-icon"
-          />
-          <span class="d-none d-md-inline"> Ukryj dodawanie kierowcy </span>
-        </button>
-        <button
-          class="btn btn-no-style"
-          v-else
-          @click="addNewDriver = !addNewDriver"
-        >
-          <font-awesome-icon
-            :icon="['fa', 'plus']"
-            size="sm"
-            class="add-hide-icon"
-          />
-          <span class="d-none d-md-inline"> Dodaj nowego kierowcę </span>
-        </button>
-      </div>
-    </div>
-    <div class="row justify-content-center" v-if="addNewDriver">
-      <div class="col ms-0 ms-lg-4 mt-4">
-        <h6 class="text-start new-item">Nowy kierowca:</h6>
-        <drivers-form @add:driver="addDriver" />
+        <h3>Zamówienia</h3>
       </div>
     </div>
   </div>
@@ -42,13 +10,33 @@
     <div class="container">
       <div class="d-flex align-items-center text-start ms-0 ms-lg-4">
         <div class="d-flex align-items-center flex-grow-1" id="filters">
+          <div class="filters-title">Filtry:</div>
           <div class="d-flex filters">
-            <div id="driver-sort" class="filters-group">
+            <div id="order-status" class="filters-group">
+              <select
+                v-model="userParams.filters.status"
+                class="form-select form-select-sm form-control btn-no-style"
+                id="ordersStatus"
+                @change="getOrders(true)"
+              >
+                <option value="" selected disabled>Status</option>
+                <option value="">-</option>
+                <option
+                  v-for="status in this.$store.getters.getOrderStatusOptions"
+                  :key="status"
+                  :value="status"
+                >
+                  {{ this.$func_global.mapOrderStatusName(status) }}
+                </option>
+              </select>
+            </div>
+
+            <div id="order-sort" class="filters-group">
               <select
                 v-model="userParams.orderBy"
                 class="form-select form-select-sm form-control btn-no-style"
-                id="driverSort"
-                @change="getDrivers(true)"
+                id="ordersSort"
+                @change="getOrders(true)"
               >
                 <option value="" selected disabled>Sortowanie</option>
                 <option value="">-</option>
@@ -67,7 +55,7 @@
                 class="btn btn-filters"
                 @click="
                   clearFilters();
-                  getDrivers(true);
+                  getOrders(true);
                 "
               >
                 Wyczyść wszystkie
@@ -95,15 +83,15 @@
   </div>
 
   <div class="container">
-    <drivers-table
-      :drivers-source="drivers"
+    <orders-table
+      :orders-source="orders"
+      :filters-source="filtersApplied"
+      @cancel:order="cancelOrder"
       class="mt-4"
-      @edit:driver="editDriver"
-      @delete:driver="deleteDriver"
     />
   </div>
 
-  <div class="container mb-3" v-if="drivers.length >= 10">
+  <div class="container mb-3" v-if="orders.length >= 10">
     <div class="d-flex flex-row-reverse">
       <pagination
         :navigation-source="navigation"
@@ -114,37 +102,31 @@
 </template>
 
 <script>
-import DriversForm from "@/components/drivers/DriversForm";
-import DriversTable from "@/components/drivers/DriversTable";
+import OrdersTable from "@/components/orders/OrdersTable";
 import Pagination from "@/components/pagination/Pagination";
 export default {
-  name: "Drivers",
+  name: "Orders",
   components: {
-    DriversForm,
-    DriversTable,
+    OrdersTable,
     Pagination,
   },
   data() {
     return {
-      drivers: [],
-      addNewDriver: false,
+      orders: [],
       userParams: {
         goToPage: 1,
         itemsPerPage: 20,
+        filters: {
+          status: "",
+        },
         orderBy: "",
       },
       filters: {
         sortByOptions: [
-          {
-            label: "Nazwisko i imię A-Z",
-            value: "lastName asc, firstName asc",
-          },
-          {
-            label: "Nazwisko i imię Z-A",
-            value: "lastName desc, firstName desc",
-          },
-          { label: "Pensja rosnąco", value: "salary asc" },
-          { label: "Pensja malejąco", value: "salary desc" },
+          { label: "Najnowsze", value: "startDate desc" },
+          { label: "Najstarsze", value: "startDate asc" },
+          { label: "Koszt rosnąco", value: "totalCost asc" },
+          { label: "Koszt malejąco", value: "totalCost desc" },
         ],
       },
       navigation: {
@@ -159,13 +141,15 @@ export default {
     };
   },
   methods: {
-    getDrivers(firstPage) {
-      const url = `${this.apiURL}api/Drivers`;
+    getOrders(firstPage) {
+      let url = `${this.apiURL}api/Orders`;
+      if (this.$store.getters.getRole === "Customer") url += "/my";
       const token = this.$store.getters.getToken;
       const requestParams = {
         Page: firstPage ? 1 : this.userParams.goToPage,
         PageSize: this.userParams.itemsPerPage,
         OrderBy: this.userParams.orderBy,
+        Filter: this.filterString,
       };
 
       this.axios
@@ -174,7 +158,7 @@ export default {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          this.drivers = response.data.results;
+          this.orders = response.data.results;
           this.navigation.totalCount = response.data.totalCount;
           this.navigation.page = response.data.page;
           this.navigation.itemsPerPage = response.data.itemsPerPage;
@@ -188,33 +172,27 @@ export default {
           console.log(error);
         });
     },
-    addDriver(driver) {
-      this.navigation.totalCount++;
-      this.drivers.unshift(driver);
-    },
-    editDriver(driver) {
-      const index = this.drivers.findIndex((d) => d.userId === driver.userId);
-      this.drivers[index] = driver;
-    },
-    deleteDriver(userId) {
-      const index = this.drivers.findIndex((d) => d.userId === userId);
-      this.drivers.splice(index, 1);
-      this.navigation.totalCount--;
+    cancelOrder(order) {
+      const index = this.orders.findIndex((o) => o.orderId === order.orderId);
+      this.orders[index] = order;
     },
     clearFilters() {
+      this.userParams.filters.status = "";
       this.userParams.orderBy = "";
     },
     handleGoToPage(number) {
       this.userParams.goToPage = number;
-      this.getDrivers(false);
+      this.getOrders(false);
     },
   },
   mounted() {
-    this.getDrivers(true);
+    this.getOrders(true);
   },
   computed: {
     filtersApplied() {
-      return this.userParams.orderBy !== "";
+      return (
+        this.userParams.filters.status !== "" || this.userParams.orderBy !== ""
+      );
     },
     filterString() {
       return this.$func_global.formatFilters(this.userParams.filters);
@@ -223,4 +201,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.form-select {
+  margin: 0 0.8rem;
+  width: fit-content;
+}
+</style>

@@ -13,6 +13,16 @@ export default createStore({
     showAfterRegisterModal: false,
     vehicleTypeOptions: ["BUS", "TRUCK"],
     vehicleStatusOptions: ["WORKING", "AT_WORKSHOP", "NOT_WORKING"],
+    orderStatusOptions: [
+      "PENDING",
+      "ACCEPTED",
+      "REJECTED",
+      "CANCELLED",
+      "EDITED",
+      "IN_NEGOTIATIONS",
+      "FOR_REALISATION",
+      "IN_REALISATION",
+    ],
     totalCost: 0,
   },
   mutations: {
@@ -42,6 +52,9 @@ export default createStore({
     },
     setTotalCost(state, value) {
       state.totalCost = value;
+    },
+    setOrderStatusOptions(state, value) {
+      state.orderStatusOptions = value;
     },
   },
   getters: {
@@ -77,6 +90,9 @@ export default createStore({
     },
     getTotalCost(state) {
       return state.totalCost;
+    },
+    getOrderStatusOptions(state) {
+      return state.orderStatusOptions;
     },
   },
   actions: {},

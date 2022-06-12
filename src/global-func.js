@@ -14,6 +14,16 @@ export const global_func = {
     else if (status === "AT_WORKSHOP") return "W naprawie";
     else if (status === "NOT_WORKING") return "Niesprawny";
   },
+  mapOrderStatusName(status) {
+    if (status === "PENDING") return "Oczekujące";
+    else if (status === "ACCEPTED") return "Zaakceptowane";
+    else if (status === "REJECTED") return "Odrzucone";
+    else if (status === "CANCELLED") return "Anulowane";
+    else if (status === "EDITED") return "Edytowane";
+    else if (status === "IN_NEGOTIATIONS") return "W trakcie negocjacji";
+    else if (status === "FOR_REALISATION") return "Do realizacji";
+    else if (status === "IN_REALISATION") return "W trakcie realizacji";
+  },
   mapResultForm(counter) {
     if (counter === 1) return "wynik";
     else if (counter === 12 || counter === 13 || counter === 14)

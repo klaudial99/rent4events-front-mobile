@@ -35,7 +35,7 @@
             <router-link
               class="nav-link"
               :class="{ active: this.$route.name === 'Orders' }"
-              to=""
+              :to="{ name: 'Orders' }"
               >ZAMÓWIENIA</router-link
             >
           </li>

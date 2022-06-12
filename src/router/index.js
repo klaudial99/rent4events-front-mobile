@@ -7,6 +7,7 @@ import Products from "@/views/Products";
 import Drivers from "@/views/Drivers";
 import Cart from "@/views/Cart";
 import Offer from "@/views/Offer";
+import Orders from "@/views/Orders";
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
     path: "/offer",
     name: "Offer",
     component: Offer,
+  },
+  {
+    path: "/orders",
+    name: "Orders",
+    component: Orders,
   },
 ];
 

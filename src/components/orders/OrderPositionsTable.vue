@@ -18,7 +18,10 @@
           <tr v-for="pos in orderPositionSource" :key="pos.productId">
             <td class="text-start">{{ pos.product.name }}</td>
             <td>{{ pos.quantity }}</td>
-            <td>{{ this.$func_global.formatPrice(pos.totalCostPerDay) }}</td>
+            <td>
+              {{ this.$func_global.formatPrice(pos.product.priceInDateRange) }}
+              zł
+            </td>
             <td>{{ this.$func_global.formatPrice(pos.totalCostPerDay) }} zł</td>
             <td>{{ this.$func_global.formatPrice(pos.totalCost) }} zł</td>
           </tr>

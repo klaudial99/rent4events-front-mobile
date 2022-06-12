@@ -9,9 +9,11 @@
           <tr>
             <th scope="col">Data rozpoczęcia</th>
             <th scope="col">Data zakończenia</th>
+            <th v-if="isAdmin" scope="col">Adres</th>
+            <th scope="col">Transport</th>
             <th scope="col">Status</th>
             <th scope="col">Koszt</th>
-            <th scope="col"></th>
+            <th v-if="!isAdmin" scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -22,10 +24,18 @@
           >
             <td>{{ this.$func_global.formatDate(order.startDate) }}</td>
             <td>{{ this.$func_global.formatDate(order.endDate) }}</td>
+            <td v-if="isAdmin">{{ order.address }}</td>
+            <td>
+              <font-awesome-icon
+                v-if="order.transport"
+                :icon="['fa', 'check']"
+              />
+              <font-awesome-icon v-else :icon="['fa', 'xmark']" />
+            </td>
             <td>{{ this.$func_global.mapOrderStatusName(order.status) }}</td>
             <td>{{ this.$func_global.formatPrice(order.totalCost) }} zł</td>
 
-            <td class="text-start">
+            <td class="text-start" v-if="!isAdmin">
               <button class="btn table-btn" v-if="order.status === 'PENDING'">
                 <font-awesome-icon
                   :icon="['fa', 'trash']"
@@ -149,6 +159,11 @@ export default {
         name: "Order",
         params: { orderId: order.orderId },
       });
+    },
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.getters.getRole === "Manager";
     },
   },
 };

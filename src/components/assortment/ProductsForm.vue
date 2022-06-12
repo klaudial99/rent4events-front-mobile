@@ -1,8 +1,6 @@
 <template>
   <form @submit.prevent="addProduct" novalidate>
-    <div
-      class="row justify-content-between justify-content-sm-end justify-content-lg-between align-items-end gy-3 mb-3"
-    >
+    <div class="row gy-3 mb-3">
       <div class="col-12 col-sm-6 col-lg-4">
         <div class="text-start">
           <label for="productNameInput" class="form-label">Nazwa:</label>
@@ -75,7 +73,40 @@
           </select>
         </div>
       </div>
-      <div class="col-12 col-sm-12 col-lg-12 order-5 order-lg-1">
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="text-start">
+          <label for="productPriceInput" class="form-label">Cena:</label>
+          <input
+            @blur="v$.newProduct.Price.$touch"
+            type="number"
+            min="0"
+            class="form-control"
+            id="productPriceInput"
+            v-model="newProduct.Price"
+            :class="{ 'error-input': v$.newProduct.Price.$error }"
+          />
+          <div
+            v-for="error of v$.newProduct.Price.$errors"
+            :key="error.$uid"
+            class="text-start mx-1"
+          >
+            <span class="error-msg">{{ error.$message }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4">
+        <div class="text-start">
+          <label for="productImageFileInput" class="form-label">Zdjęcie:</label>
+          <input
+            class="form-control"
+            type="file"
+            id="productImageFileInput"
+            accept="image/png, image/jpeg, image/png"
+            @change="changePhoto"
+          />
+        </div>
+      </div>
+      <div class="col-12">
         <div class="text-start">
           <label for="productDescriptionInput" class="form-label">Opis:</label>
           <textarea
@@ -97,19 +128,9 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-lg-4 order-1 order-lg-5">
-        <div class="text-start">
-          <label for="productImageFileInput" class="form-label">Zdjęcie:</label>
-          <input
-            class="form-control"
-            type="file"
-            id="productImageFileInput"
-            accept="image/png, image/jpeg, image/png"
-            @change="changePhoto"
-          />
-        </div>
-      </div>
-      <div class="col-3 col-md-2 d-none d-sm-block order-last">
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-3 col-md-2 d-none d-sm-block">
         <button type="submit" class="btn btn-main">Dodaj</button>
       </div>
     </div>
@@ -125,7 +146,7 @@
 
 <script>
 import useVuelidate from "@vuelidate/core";
-import { helpers, integer, required } from "@vuelidate/validators";
+import { helpers, integer, numeric, required } from "@vuelidate/validators";
 
 export default {
   name: "ProductsForm",
@@ -143,6 +164,7 @@ export default {
         Quantity: 0,
         Category: "",
         ImageFile: null,
+        Price: 0,
       },
       productNameTaken: false,
     };
@@ -170,6 +192,16 @@ export default {
           integer: helpers.withMessage(
             "To pole może zawierać jedynie cyfry.",
             integer
+          ),
+        },
+        Price: {
+          required: helpers.withMessage(
+            "To pole nie może być puste.",
+            required
+          ),
+          numeric: helpers.withMessage(
+            "To pole może zawierać jedynie cyfry.",
+            numeric
           ),
         },
       },
@@ -224,6 +256,7 @@ export default {
         Quantity: 0,
         Category: "",
         ImageFile: "",
+        Price: 0,
       };
     },
   },

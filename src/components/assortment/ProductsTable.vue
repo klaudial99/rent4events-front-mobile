@@ -11,6 +11,7 @@
             <th scope="col">Kategoria</th>
             <th scope="col">Liczba sztuk</th>
             <th scope="col">Dostępne</th>
+            <th scope="col">Cena</th>
             <th scope="col">Opis</th>
             <th scope="col">Zdjęcie</th>
             <th scope="col"></th>
@@ -68,6 +69,10 @@
             <td v-else class="w-10">{{ prod.quantity }}</td>
 
             <td>{{ prod.availableToday }}</td>
+
+            <td class="text-nowrap">
+              {{ this.$func_global.formatPrice(prod.priceToday) }} zł
+            </td>
 
             <td v-if="editMode && editedProduct === prod">
               <input
@@ -453,11 +458,14 @@ export default {
 
 @media (min-width: 992px) {
   td.w-10 {
-    min-width: 10vw;
+    min-width: 7vw;
   }
   td.w-30 {
     min-width: 30vw;
   }
+}
+
+@media (min-width: 1200px) {
   .table-responsive {
     overflow-x: hidden;
   }

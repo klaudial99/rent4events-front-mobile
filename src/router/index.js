@@ -10,6 +10,7 @@ import Offer from "@/views/Offer";
 import Orders from "@/views/Orders";
 import Order from "@/views/Order";
 import Courses from "@/views/Courses";
+import CurrentCourse from "@/views/CurrentCourse";
 
 const routes = [
   {
@@ -76,6 +77,11 @@ const routes = [
     path: "/courses",
     name: "Courses",
     component: Courses,
+  },
+  {
+    path: "/courses/current",
+    name: "CurrentCourse",
+    component: CurrentCourse,
   },
 ];
 

@@ -99,7 +99,12 @@ export default {
           this.$store.commit("setRefreshToken", response.data.refreshToken);
           this.$store.commit("setRole", response.data.roles[0]);
           document.getElementById("loginRegisterModalClose").click();
-          this.$router.push({ name: "Dashboard" });
+          if (this.$store.getters.getRole === "Customer")
+            this.$router.push({ name: "Offer" });
+          else if (this.$store.getters.getRole === "Orders")
+            this.$router.push({ name: "Offer" });
+          else if (this.$store.getters.getRole === "Driver")
+            this.$router.push({ name: "CurrentCourse" });
         })
         .catch((error) => {
           if (

@@ -15,14 +15,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarClientContent">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item pe-3">
-            <router-link
-              class="nav-link"
-              :class="{ active: this.$route.name === 'Dashboard' }"
-              :to="{ name: 'Dashboard' }"
-              >HOME</router-link
-            >
-          </li>
+          <!--          <li class="nav-item pe-3">-->
+          <!--            <router-link-->
+          <!--              class="nav-link"-->
+          <!--              :class="{ active: this.$route.name === 'Dashboard' }"-->
+          <!--              :to="{ name: 'Dashboard' }"-->
+          <!--              >HOME</router-link-->
+          <!--            >-->
+          <!--          </li>-->
           <li class="nav-item pe-3">
             <router-link
               class="nav-link"

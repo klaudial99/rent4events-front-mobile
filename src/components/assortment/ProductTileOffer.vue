@@ -126,6 +126,7 @@ export default {
             " SZTUKI: ",
             response.data.quantity
           );
+          this.$store.commit("setTotalCost", response.data.totalOrderCost);
         })
         .catch((error) => {
           console.log(error);
@@ -146,7 +147,6 @@ export default {
         this.units = this.alreadyAdded;
     },
     async deleteOverflow() {
-      console.log("USUWAM");
       this.units = this.productSource.availableInDateRange;
       await this.updateCart();
       this.$emit("update:cart");

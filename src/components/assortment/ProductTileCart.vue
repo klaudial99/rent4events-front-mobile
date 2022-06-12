@@ -37,8 +37,6 @@
           class="btn btn-no-style category-text text-nowrap w-100"
           type="button"
           @click="deleteOverflow"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
         >
           Usuń nadmiar
         </button>
@@ -155,7 +153,6 @@ export default {
       }, 1000);
     },
     async deleteOverflow() {
-      console.log("USUWAM");
       this.units = this.orderPosition.product.availableInDateRange;
       await this.updateCart();
       this.$emit("update:cart");

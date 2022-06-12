@@ -13,6 +13,7 @@ export default createStore({
     showAfterRegisterModal: false,
     vehicleTypeOptions: ["BUS", "TRUCK"],
     vehicleStatusOptions: ["WORKING", "AT_WORKSHOP", "NOT_WORKING"],
+    totalCost: 0,
   },
   mutations: {
     setActiveTab(state, value) {
@@ -38,6 +39,9 @@ export default createStore({
     },
     setShowAfterRegisterModal(state, value) {
       state.showAfterRegisterModal = value;
+    },
+    setTotalCost(state, value) {
+      state.totalCost = value;
     },
   },
   getters: {
@@ -70,6 +74,9 @@ export default createStore({
     },
     getVehicleStatusOptions(state) {
       return state.vehicleStatusOptions;
+    },
+    getTotalCost(state) {
+      return state.totalCost;
     },
   },
   actions: {},

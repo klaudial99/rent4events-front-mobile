@@ -69,7 +69,14 @@
           <li class="nav-item pe-3">
             <router-link class="nav-link cart px-3" :to="{ name: 'Cart' }">
               <font-awesome-icon :icon="['fa', 'cart-shopping']" />
-              <span class="cart-money ms-3 align-self-center">0,00 zł</span>
+              <span class="cart-money ms-3 align-self-center"
+                >{{
+                  this.$func_global.formatPrice(
+                    this.$store.getters.getTotalCost
+                  )
+                }}
+                zł</span
+              >
             </router-link>
           </li>
         </ul>

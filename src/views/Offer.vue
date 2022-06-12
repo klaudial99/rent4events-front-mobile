@@ -213,6 +213,7 @@ export default {
         .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.cart = response.data;
+          this.$store.commit("setTotalCost", response.data.totalCost);
           const today = new Date();
           const tomorrow = new Date(today);
           tomorrow.setDate(tomorrow.getDate() + 1);

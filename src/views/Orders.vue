@@ -125,8 +125,8 @@ export default {
         sortByOptions: [
           { label: "Data rozpoczęcia najpóźniej", value: "startDate desc" },
           { label: "Data rozpoczęcia najwcześniej", value: "startDate asc" },
-          { label: "Koszt rosnąco", value: "totalCost asc" },
-          { label: "Koszt malejąco", value: "totalCost desc" },
+          // { label: "Koszt rosnąco", value: "totalCost asc" },
+          // { label: "Koszt malejąco", value: "totalCost desc" },
         ],
       },
       navigation: {

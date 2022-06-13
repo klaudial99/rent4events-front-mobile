@@ -1,6 +1,9 @@
 <template>
   <div class="layout">
-    <navbar-guest />
+    <navbar-client v-if="this.$store.getters.getRole === 'Customer'" />
+    <navbar-driver v-else-if="this.$store.getters.getRole === 'Driver'" />
+    <navbar-manager v-else-if="this.$store.getters.getRole === 'Manager'" />
+    <navbar-guest v-else />
     <slot />
     <button class="scroll-top" id="scroll-btn" @click="scrollTop">
       <font-awesome-icon :icon="['fa', 'arrow-up']" />
@@ -13,11 +16,17 @@
 
 <script>
 import NavbarGuest from "@/components/navbars/NavbarGuest";
+import NavbarDriver from "@/components/navbars/NavbarDriver";
+import NavbarManager from "@/components/navbars/NavbarManager";
+import NavbarClient from "@/components/navbars/NavbarClient";
 import SiteFooter from "@/components/SiteFooter";
 export default {
   name: "Layout",
   components: {
     NavbarGuest,
+    NavbarClient,
+    NavbarManager,
+    NavbarDriver,
     SiteFooter,
   },
   methods: {
@@ -29,8 +38,19 @@ export default {
     scrollTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     },
+    shadowOnScroll() {
+      window.onscroll = () => {
+        const nav = document.querySelector(".navbar");
+        if (window.scrollY > 0) {
+          nav.classList.add("add-shadow");
+        } else {
+          nav.classList.remove("add-shadow");
+        }
+      };
+    },
   },
   mounted() {
+    this.shadowOnScroll();
     document.addEventListener("scroll", this.handleScroll);
   },
 };

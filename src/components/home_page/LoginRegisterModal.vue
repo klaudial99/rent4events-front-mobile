@@ -3,13 +3,16 @@
     class="modal fade"
     id="loginRegisterModal"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-body position-relative">
+        <div
+          class="modal-body position-relative"
+          v-if="!this.$store.getters.getShowAfterRegisterModal"
+        >
           <button
+            id="loginRegisterModalClose"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -94,6 +97,26 @@
             </div>
           </div>
         </div>
+        <div class="modal-body position-relative" v-else>
+          <button
+            id="afterRegisterModalClose"
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+          <div class="container mt-4">
+            <div class="row">
+              <div class="col">
+                <p>
+                  Dziękujemy za dołączenie do nas! Jednak zanim złożysz pierwsze
+                  zamówienie, zajrzyj do swojej skrzynki - wysłaliśmy Ci maila z
+                  linkiem potwierdzającym rejestrację.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -113,21 +136,6 @@ export default {
 </script>
 
 <style scoped>
-.modal-content {
-  border-radius: 0;
-  border: none;
-}
-
-.modal-header {
-  border-bottom: none;
-}
-
-.btn-close {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-}
-
 .nav-link {
   color: var(--BLACK);
   transition: all 0.4s ease-in-out;

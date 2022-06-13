@@ -7,7 +7,6 @@
         type="email"
         class="form-control"
         id="emailInputLogin"
-        aria-describedby="emailHelp"
         v-model="loginEmail"
         :class="{ 'error-input': v$.loginEmail.$error }"
         @focus="clearStatus"
@@ -98,9 +97,22 @@ export default {
           this.$store.commit("setLastName", response.data.lastName);
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setRefreshToken", response.data.refreshToken);
+          this.$store.commit("setRole", response.data.roles[0]);
+          this.$store.commit("setTotalCost", 0);
+          document.getElementById("loginRegisterModalClose").click();
+          if (this.$store.getters.getRole === "Customer")
+            this.$router.push({ name: "Offer" });
+          else if (this.$store.getters.getRole === "Orders")
+            this.$router.push({ name: "Offer" });
+          else if (this.$store.getters.getRole === "Driver")
+            this.$router.push({ name: "CurrentCourse" });
         })
         .catch((error) => {
-          if (error.response.status === 400) this.wrongData = true;
+          if (
+            this.$func_global.getErrorCode(error.response.data.message) ===
+            "104"
+          )
+            this.wrongData = true;
         });
     },
     clearStatus() {

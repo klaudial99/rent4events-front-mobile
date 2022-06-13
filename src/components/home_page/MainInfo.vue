@@ -14,7 +14,10 @@
               class="btn join-us-btn d-block my-3 mx-auto mx-md-0 p-0"
               data-bs-toggle="modal"
               data-bs-target="#loginRegisterModal"
-              @click="this.$store.commit('setActiveTab', 'register')"
+              @click="
+                this.$store.commit('setActiveTab', 'register');
+                this.$store.commit('setShowAfterRegisterModal', false);
+              "
             >
               <span class="join-us-text">Dołącz do nas!</span>
               <font-awesome-icon
@@ -43,7 +46,9 @@
 import LoginRegisterModal from "@/components/home_page/LoginRegisterModal";
 export default {
   name: "MainInfo",
-  components: { LoginRegisterModal },
+  components: {
+    LoginRegisterModal,
+  },
 };
 </script>
 

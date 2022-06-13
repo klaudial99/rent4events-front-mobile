@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
@@ -9,6 +10,22 @@ export default createStore({
     token: "",
     refreshToken: "",
     role: "",
+    showAfterRegisterModal: false,
+    vehicleTypeOptions: ["BUS", "TRUCK"],
+    vehicleStatusOptions: ["WORKING", "AT_WORKSHOP", "NOT_WORKING"],
+    orderStatusOptions: [
+      "PENDING",
+      "ACCEPTED",
+      "REJECTED",
+      "CANCELLED",
+      "EDITED",
+      "IN_NEGOTIATIONS",
+      "FOR_REALISATION",
+      "IN_REALISATION",
+    ],
+    courseTypeOptions: ["DELIVERY", "PICKUP"],
+    courseStatusOptions: ["PLANNED", "ON_THE_WAY", "DONE", "CANCELLED"],
+    totalCost: 0,
   },
   mutations: {
     setActiveTab(state, value) {
@@ -31,6 +48,21 @@ export default createStore({
     },
     setRole(state, value) {
       state.role = value;
+    },
+    setShowAfterRegisterModal(state, value) {
+      state.showAfterRegisterModal = value;
+    },
+    setTotalCost(state, value) {
+      state.totalCost = value;
+    },
+    setOrderStatusOptions(state, value) {
+      state.orderStatusOptions = value;
+    },
+    setCourseTypeOptions(state, value) {
+      state.courseTypeOptions = value;
+    },
+    setCourseStatusOptions(state, value) {
+      state.courseStatusOptions = value;
     },
   },
   getters: {
@@ -55,7 +87,29 @@ export default createStore({
     getRole(state) {
       return state.role;
     },
+    getShowAfterRegisterModal(state) {
+      return state.showAfterRegisterModal;
+    },
+    getVehicleTypeOptions(state) {
+      return state.vehicleTypeOptions;
+    },
+    getVehicleStatusOptions(state) {
+      return state.vehicleStatusOptions;
+    },
+    getTotalCost(state) {
+      return state.totalCost;
+    },
+    getOrderStatusOptions(state) {
+      return state.orderStatusOptions;
+    },
+    getCourseTypeOptions(state) {
+      return state.courseTypeOptions;
+    },
+    getCourseStatusOptions(state) {
+      return state.courseStatusOptions;
+    },
   },
   actions: {},
   modules: {},
+  plugins: [createPersistedState()],
 });

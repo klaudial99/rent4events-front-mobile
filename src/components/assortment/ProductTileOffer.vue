@@ -34,7 +34,7 @@
       </div>
       <div class="d-flex justify-content-between category-text ms-2 my-1">
         <span> Dostępnych: {{ productSource.availableInDateRange }} </span>
-        <span v-if="tooMuchInCart" class="error-cart">
+        <span v-if="tooMuchInCart && isClient" class="error-cart">
           W koszyku: {{ alreadyAdded }}
         </span>
       </div>

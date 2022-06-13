@@ -102,8 +102,8 @@ export default {
           document.getElementById("loginRegisterModalClose").click();
           if (this.$store.getters.getRole === "Customer")
             this.$router.push({ name: "Offer" });
-          else if (this.$store.getters.getRole === "Orders")
-            this.$router.push({ name: "Offer" });
+          else if (this.$store.getters.getRole === "Manager")
+            this.$router.push({ name: "Orders" });
           else if (this.$store.getters.getRole === "Driver")
             this.$router.push({ name: "CurrentCourse" });
         })

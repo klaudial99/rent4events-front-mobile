@@ -22,6 +22,7 @@
             <td
               :class="{
                 'error-cart':
+                  isAdmin &&
                   orderSource.status === 'PENDING' &&
                   pos.product.availableInDateRange < pos.quantity,
               }"
@@ -46,6 +47,11 @@ export default {
   props: {
     orderPositionSource: Array,
     orderSource: Object,
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.getters.getRole === "Manager";
+    },
   },
 };
 </script>

@@ -91,7 +91,7 @@
               </button>
             </td>
             <td v-else-if="isAdmin" class="text-start">
-              <button class="btn table-btn">
+              <button class="btn table-btn" v-if="course.status === 'PLANNED'">
                 <font-awesome-icon
                   :icon="['fa', 'pen']"
                   size="sm"

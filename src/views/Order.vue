@@ -14,7 +14,7 @@
 
   <div
     class="container mt-3 mb-4"
-    v-if="orderPositions && order && order.status === 'PENDING'"
+    v-if="isAdmin && orderPositions && order && order.status === 'PENDING'"
   >
     <div class="row justify-content-center">
       <div class="col-6 col-lg-3 col-xl-2">
@@ -435,6 +435,11 @@ export default {
     this.courseFrom.driverId = this.drivers[0].userId;
     this.courseTo.vehicleId = this.vehicles[0].vehicleId;
     this.courseFrom.vehicleId = this.vehicles[0].vehicleId;
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.getters.getRole === "Manager";
+    },
   },
 };
 </script>

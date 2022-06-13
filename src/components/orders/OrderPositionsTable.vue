@@ -1,7 +1,9 @@
 <template>
   <div>
     <div
-      v-if="orderPositionSource && orderPositionSource.length > 0"
+      v-if="
+        orderSource && orderPositionSource && orderPositionSource.length > 0
+      "
       class="table-responsive"
     >
       <table class="table table-hover align-middle">

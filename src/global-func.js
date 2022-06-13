@@ -47,6 +47,11 @@ export const global_func = {
       return moment(String(date)).format("DD/MM/YYYY");
     }
   },
+  formatDateRequest(date) {
+    if (date) {
+      return moment(String(date)).format("YYYY-MM-DD");
+    }
+  },
   datepickerFormat(date) {
     const day = date.getDate();
     let month = date.getMonth() + 1;

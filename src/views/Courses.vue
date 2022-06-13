@@ -107,6 +107,7 @@
       :filters-source="filtersApplied"
       :vehicles-source="vehicles"
       :drivers-source="drivers"
+      :is-actual-course="false"
       class="mt-4"
       @edit:course="editCourse"
     />

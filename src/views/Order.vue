@@ -8,37 +8,8 @@
         </button>
       </div>
     </div>
-    <div class="row mt-3 gy-2">
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Początek wypożyczenia: </span>
-        <span>{{ this.$func_global.formatDate(order.startDate) }}</span>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Koniec wypożyczenia: </span>
-        <span>{{ this.$func_global.formatDate(order.endDate) }}</span>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Adres: </span>
-        <span>{{ order.address }}</span>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Transport: </span>
-        <font-awesome-icon v-if="order.transport" :icon="['fa', 'check']" />
-        <font-awesome-icon v-else :icon="['fa', 'xmark']" />
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Status: </span>
-        <span>{{ this.$func_global.mapOrderStatusName(order.status) }}</span>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 text-start">
-        <span class="fw-bolder">Całkowity koszt: </span>
-        <span>{{ this.$func_global.formatPrice(order.totalCost) }} zł</span>
-      </div>
-      <div class="col-12 text-start">
-        <span class="fw-bolder">Komentarz: </span>
-        <p>{{ order.comment }}</p>
-      </div>
-    </div>
+
+    <order-details :order-source="order" class="mt-3 gy-2" />
   </div>
 
   <div
@@ -275,11 +246,13 @@
 <script>
 import Pagination from "@/components/pagination/Pagination";
 import OrderPositionsTable from "@/components/orders/OrderPositionsTable";
+import OrderDetails from "@/components/orders/OrderDetails";
 export default {
   name: "Order",
   components: {
     Pagination,
     OrderPositionsTable,
+    OrderDetails,
   },
   props: {
     orderId: String,
@@ -470,16 +443,4 @@ export default {
 .modal-header {
   border-bottom: none;
 }
-
-/*@media (min-width: 1px) and (max-width: 991px) {*/
-/*  .btn-accept {*/
-/*    width: 50%;*/
-/*  }*/
-/*}*/
-
-/*@media (min-width: 992px) {*/
-/*  .btn-accept {*/
-/*    width: 25%;*/
-/*  }*/
-/*}*/
 </style>

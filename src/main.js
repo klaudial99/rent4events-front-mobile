@@ -30,6 +30,7 @@ import {
   faChevronRight,
   faChevronLeft,
   faCartShopping,
+  faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faArrowUp);
 library.add(faTruck);
@@ -48,6 +49,7 @@ library.add(faChevronDown);
 library.add(faChevronRight);
 library.add(faChevronLeft);
 library.add(faCartShopping);
+library.add(faTruckFast);
 
 import {
   faFacebook,

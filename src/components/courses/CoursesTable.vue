@@ -100,6 +100,16 @@
                 />
               </button>
             </td>
+            <td v-else-if="isActualCourse" class="text-start">
+              <button class="btn table-btn" v-if="course.status === 'PLANNED'">
+                <font-awesome-icon
+                  :icon="['fa', 'truck-fast']"
+                  size="sm"
+                  class="table-icon"
+                  @click="startCourse(course)"
+                />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -125,6 +135,7 @@ export default {
     filtersSource: Boolean,
     vehiclesSource: Array,
     driversSource: Array,
+    isActualCourse: Boolean,
   },
   data() {
     return {
@@ -169,6 +180,25 @@ export default {
           this.editMode = false;
           this.editedCourse = null;
           this.clearNewCourseData();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    startCourse(course) {
+      const url = `${this.apiURL}api/Courses/${course.courseId}`;
+      const token = this.$store.getters.getToken;
+
+      const data = {
+        status: "ON_THE_WAY",
+      };
+
+      this.axios
+        .put(url, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          this.$emit("start:course", response.data);
         })
         .catch((error) => {
           console.log(error);

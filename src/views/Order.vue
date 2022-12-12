@@ -70,13 +70,46 @@
     </div>
   </div>
 
+  <div
+    class="position-fixed top-0 end-0 p-3"
+    style="z-index: 1050"
+    v-if="userFeedback.isOpen && userFeedback.version === 'A'"
+  >
+    <div class="my-toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex me-4">
+        <div
+          class="my-toast-body"
+          v-if="userFeedback.accepted && userFeedback.courses"
+        >
+          Pomyślnie zaakceptowano zamówienie i dodano kursy.
+        </div>
+        <div
+          class="my-toast-body"
+          v-else-if="userFeedback.accepted && !userFeedback.courses"
+        >
+          Pomyślnie zaakceptowano zamówienie.
+        </div>
+        <div class="my-toast-body" v-else>Pomyślnie odrzucono zamówienie.</div>
+        <button
+          type="button"
+          class="btn-close me-2 mt-2"
+          @click="userFeedback.isOpen = false"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" tabindex="-1" id="orderAcceptModal" v-if="order">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div
+      class="modal-dialog modal-dialog-centered"
+      :class="[userFeedback.isOpen ? 'modal-md' : 'modal-lg']"
+    >
       <div class="modal-content">
         <div class="modal-header">
           <div class="container">
             <h5
-              v-if="accepting && order.transport"
+              v-if="!userFeedback.isOpen && accepting && order.transport"
               class="modal-title text-start"
             >
               Dodaj kursy do zamówienia
@@ -92,7 +125,21 @@
         </div>
         <div class="modal-body">
           <div class="container">
-            <div class="row mb-5" v-if="accepting && order.transport">
+            <div
+              class="row"
+              v-if="userFeedback.isOpen && userFeedback.version === 'B'"
+            >
+              <div class="col">
+                <p v-if="userFeedback.accepted && userFeedback.courses">
+                  Pomyślnie zaakceptowano zamówienie i dodano kursy.
+                </p>
+                <p v-else-if="userFeedback.accepted && !userFeedback.courses">
+                  Pomyślnie zaakceptowano zamówienie.
+                </p>
+                <p v-else>Pomyślnie odrzucono zamówienie.</p>
+              </div>
+            </div>
+            <div class="row mb-5" v-else-if="accepting && order.transport">
               <div class="col-12 col-md-6">
                 <div class="text-start">
                   <h4>DOSTAWA</h4>
@@ -196,7 +243,7 @@
             </div>
 
             <div class="row">
-              <div class="col">
+              <div class="col" v-if="!userFeedback.isOpen">
                 <button
                   class="btn btn-main-outline modal-decision-button"
                   data-bs-dismiss="modal"
@@ -205,10 +252,31 @@
                   Anuluj
                 </button>
               </div>
-              <div class="col" v-if="accepting && order.transport">
+              <div
+                class="col"
+                v-if="userFeedback.isOpen && userFeedback.version === 'B'"
+              >
                 <button
                   class="btn btn-main modal-decision-button"
                   data-bs-dismiss="modal"
+                  type="button"
+                >
+                  Zamknij
+                </button>
+              </div>
+              <div class="col" v-else-if="accepting && order.transport">
+                <button
+                  v-if="userFeedback.version === 'A'"
+                  class="btn btn-main modal-decision-button"
+                  data-bs-dismiss="modal"
+                  type="button"
+                  @click="addCourses"
+                >
+                  Dodaj
+                </button>
+                <button
+                  v-else
+                  class="btn btn-main modal-decision-button"
                   type="button"
                   @click="addCourses"
                 >
@@ -218,7 +286,6 @@
               <div class="col" v-else-if="accepting && !order.transport">
                 <button
                   class="btn btn-main modal-decision-button"
-                  data-bs-dismiss="modal"
                   type="button"
                   @click="changeOrderStatus('ACCEPTED')"
                 >
@@ -228,7 +295,6 @@
               <div class="col" v-else-if="!accepting">
                 <button
                   class="btn btn-main modal-decision-button"
-                  data-bs-dismiss="modal"
                   type="button"
                   @click="changeOrderStatus('REJECTED')"
                 >
@@ -279,6 +345,12 @@ export default {
         status: "PLANNED",
         date: null,
         orderId: "",
+      },
+      userFeedback: {
+        courses: false,
+        accepted: false,
+        isOpen: false,
+        version: "A",
       },
       userParams: {
         goToPage: 1,
@@ -354,6 +426,15 @@ export default {
         .put(url, data, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
           this.order = response.data;
+          status === "ACCEPTED"
+            ? (this.userFeedback.accepted = true)
+            : (this.userFeedback.false = true);
+          this.userFeedback.isOpen = true;
+          if (this.userFeedback.version === "A") {
+            setTimeout(() => {
+              this.userFeedback.isOpen = false;
+            }, 3000);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -417,6 +498,7 @@ export default {
       await this.addCourse(this.courseTo);
       await this.addCourse(this.courseFrom);
       await this.changeOrderStatus("ACCEPTED");
+      this.userFeedback.courses = true;
     },
     handleGoToPage(number) {
       this.userParams.goToPage = number;
@@ -447,5 +529,21 @@ export default {
 <style scoped>
 .modal-header {
   border-bottom: none;
+}
+.my-toast {
+  max-width: 100%;
+  font-size: 0.875rem;
+  pointer-events: auto;
+  background-color: rgba(240, 240, 240, 0.95);
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.my-toast-body {
+  padding: 0.75rem;
+  word-wrap: break-word;
+  text-align: start;
 }
 </style>

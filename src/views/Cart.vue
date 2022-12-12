@@ -144,38 +144,458 @@
         <div class="modal-body">
           <form @submit.prevent="changeOrderDetails" novalidate>
             <div class="container mt-4">
-              <div class="row">
-                <div class="col">
+              <div class="row" v-if="version === 'A'">
+                <div class="col-12 text-start">
+                  <h6>Adres rozliczeniowy:</h6>
+                </div>
+                <div class="col-6">
                   <div class="mb-2 text-start">
-                    <label for="addressInput" class="form-label">Adres:</label>
+                    <label for="billingStreetInput" class="form-label"
+                      >Ulica i numer domu:</label
+                    >
                     <input
-                      @blur="v$.newOrder.address.$touch"
+                      @blur="v$.newOrder.billingAddress.street.$touch"
                       type="text"
                       class="form-control"
-                      id="addressInput"
-                      v-model="newOrder.address"
-                      :class="{ 'error-input': v$.newOrder.address.$error }"
+                      id="billingStreetInput"
+                      v-model="newOrder.billingAddress.street"
+                      :class="{
+                        'error-input': v$.newOrder.billingAddress.street.$error,
+                      }"
                     />
                     <div
-                      v-for="error of v$.newOrder.address.$errors"
+                      v-for="error of v$.newOrder.billingAddress.street.$errors"
                       :key="error.$uid"
                       class="text-start mx-1"
                     >
                       <span class="error-msg">{{ error.$message }}</span>
                     </div>
                   </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="billingApartmentNumberInput" class="form-label"
+                      >Numer mieszkania:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="billingApartmentNumberInput"
+                      v-model="newOrder.billingAddress.apartmentNumber"
+                    />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="billingPostalCodeInput" class="form-label"
+                      >Kod pocztowy:</label
+                    >
+                    <input
+                      @blur="v$.newOrder.billingAddress.postalCode.$touch"
+                      type="text"
+                      class="form-control"
+                      id="billingPostalCodeInput"
+                      v-model="newOrder.billingAddress.postalCode"
+                      :class="{
+                        'error-input':
+                          v$.newOrder.billingAddress.postalCode.$error,
+                      }"
+                    />
+                    <div
+                      v-for="error of v$.newOrder.billingAddress.postalCode
+                        .$errors"
+                      :key="error.$uid"
+                      class="text-start mx-1"
+                    >
+                      <span class="error-msg">{{ error.$message }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="billingCityInput" class="form-label"
+                      >Miasto:</label
+                    >
+                    <input
+                      @blur="v$.newOrder.billingAddress.city.$touch"
+                      type="text"
+                      class="form-control"
+                      id="billingCityInput"
+                      v-model="newOrder.billingAddress.city"
+                      :class="{
+                        'error-input': v$.newOrder.billingAddress.city.$error,
+                      }"
+                    />
+                    <div
+                      v-for="error of v$.newOrder.billingAddress.city.$errors"
+                      :key="error.$uid"
+                      class="text-start mx-1"
+                    >
+                      <span class="error-msg">{{ error.$message }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
                   <div class="form-check mb-3 text-start">
                     <input
                       class="form-check-input"
                       type="checkbox"
                       v-model="newOrder.transport"
                       :value="newOrder.transport"
-                      id="transportInput"
+                      id="isTransportInput"
                     />
-                    <label class="form-check-label" for="transportInput">
-                      Transport
+                    <label class="form-check-label" for="isTransportInput">
+                      Potrzebuję transportu
                     </label>
                   </div>
+                </div>
+              </div>
+              <div class="row" v-if="newOrder.transport && version === 'A'">
+                <div class="col-12 text-start">
+                  <h6>Adres dostawy:</h6>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="shippingStreetInput" class="form-label"
+                      >Ulica i numer domu:</label
+                    >
+                    <input
+                      @blur="v$.newOrder.shippingAddress.street.$touch"
+                      type="text"
+                      class="form-control"
+                      id="shippingStreetInput"
+                      v-model="newOrder.shippingAddress.street"
+                      :disabled="sameAddress"
+                      :class="{
+                        'error-input':
+                          v$.newOrder.shippingAddress.street.$error,
+                      }"
+                    />
+                    <div
+                      v-for="error of v$.newOrder.shippingAddress.street
+                        .$errors"
+                      :key="error.$uid"
+                      class="text-start mx-1"
+                    >
+                      <span class="error-msg">{{ error.$message }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="shippingApartmentNumberInput" class="form-label"
+                      >Numer mieszkania:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="shippingApartmentNumberInput"
+                      v-model="newOrder.shippingAddress.apartmentNumber"
+                      :disabled="sameAddress"
+                    />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="shippingPostalCodeInput" class="form-label"
+                      >Kod pocztowy:</label
+                    >
+                    <input
+                      @blur="v$.newOrder.shippingAddress.postalCode.$touch"
+                      type="text"
+                      class="form-control"
+                      id="shippingPostalCodeInput"
+                      v-model="newOrder.shippingAddress.postalCode"
+                      :disabled="sameAddress"
+                      :class="{
+                        'error-input':
+                          v$.newOrder.shippingAddress.postalCode.$error,
+                      }"
+                    />
+                    <div
+                      v-for="error of v$.newOrder.shippingAddress.postalCode
+                        .$errors"
+                      :key="error.$uid"
+                      class="text-start mx-1"
+                    >
+                      <span class="error-msg">{{ error.$message }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="mb-2 text-start">
+                    <label for="shippingCityInput" class="form-label"
+                      >Miasto:</label
+                    >
+                    <input
+                      @blur="v$.newOrder.shippingAddress.city.$touch"
+                      type="text"
+                      class="form-control"
+                      id="shippingCityInput"
+                      v-model="newOrder.shippingAddress.city"
+                      :disabled="sameAddress"
+                      :class="{
+                        'error-input': v$.newOrder.shippingAddress.city.$error,
+                      }"
+                    />
+                    <div
+                      v-for="error of v$.newOrder.shippingAddress.city.$errors"
+                      :key="error.$uid"
+                      class="text-start mx-1"
+                    >
+                      <span class="error-msg">{{ error.$message }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-check mb-3 text-start">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="sameAddress"
+                      id="sameAddressInput"
+                    />
+                    <label class="form-check-label" for="sameAddressInput">
+                      Taki sam jak adres rozliczeniowy
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" v-if="version === 'B'">
+                <div :class="[newOrder.transport ? 'col-6' : 'col-12']">
+                  <div class="row">
+                    <div class="col-12 text-start">
+                      <h6>Adres rozliczeniowy:</h6>
+                    </div>
+                    <div :class="[newOrder.transport ? 'col-12' : 'col-6']">
+                      <div class="mb-2 text-start">
+                        <label for="billingStreetInputB" class="form-label"
+                          >Ulica i numer domu:</label
+                        >
+                        <input
+                          @blur="v$.newOrder.billingAddress.street.$touch"
+                          type="text"
+                          class="form-control"
+                          id="billingStreetInputB"
+                          v-model="newOrder.billingAddress.street"
+                          :class="{
+                            'error-input':
+                              v$.newOrder.billingAddress.street.$error,
+                          }"
+                        />
+                        <div
+                          v-for="error of v$.newOrder.billingAddress.street
+                            .$errors"
+                          :key="error.$uid"
+                          class="text-start mx-1"
+                        >
+                          <span class="error-msg">{{ error.$message }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div :class="[newOrder.transport ? 'col-12' : 'col-6']">
+                      <div class="mb-2 text-start">
+                        <label
+                          for="billingApartmentNumberInputB"
+                          class="form-label"
+                          >Numer mieszkania:</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="billingApartmentNumberInputB"
+                          v-model="newOrder.billingAddress.apartmentNumber"
+                        />
+                      </div>
+                    </div>
+                    <div :class="[newOrder.transport ? 'col-12' : 'col-6']">
+                      <div class="mb-2 text-start">
+                        <label for="billingPostalCodeInputB" class="form-label"
+                          >Kod pocztowy:</label
+                        >
+                        <input
+                          @blur="v$.newOrder.billingAddress.postalCode.$touch"
+                          type="text"
+                          class="form-control"
+                          id="billingPostalCodeInputB"
+                          v-model="newOrder.billingAddress.postalCode"
+                          :class="{
+                            'error-input':
+                              v$.newOrder.billingAddress.postalCode.$error,
+                          }"
+                        />
+                        <div
+                          v-for="error of v$.newOrder.billingAddress.postalCode
+                            .$errors"
+                          :key="error.$uid"
+                          class="text-start mx-1"
+                        >
+                          <span class="error-msg">{{ error.$message }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div :class="[newOrder.transport ? 'col-12' : 'col-6']">
+                      <div class="mb-2 text-start">
+                        <label for="billingCityInputB" class="form-label"
+                          >Miasto:</label
+                        >
+                        <input
+                          @blur="v$.newOrder.billingAddress.city.$touch"
+                          type="text"
+                          class="form-control"
+                          id="billingCityInputB"
+                          v-model="newOrder.billingAddress.city"
+                          :class="{
+                            'error-input':
+                              v$.newOrder.billingAddress.city.$error,
+                          }"
+                        />
+                        <div
+                          v-for="error of v$.newOrder.billingAddress.city
+                            .$errors"
+                          :key="error.$uid"
+                          class="text-start mx-1"
+                        >
+                          <span class="error-msg">{{ error.$message }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div :class="[newOrder.transport ? 'col-12' : 'col-6']">
+                      <div class="form-check mb-3 text-start">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          v-model="newOrder.transport"
+                          :value="newOrder.transport"
+                          id="isTransportInputB"
+                        />
+                        <label class="form-check-label" for="isTransportInputB">
+                          Potrzebuję transportu
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6" v-if="newOrder.transport">
+                  <div class="col-12 text-start">
+                    <h6>Adres dostawy:</h6>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-2 text-start">
+                      <label for="shippingStreetInputB" class="form-label"
+                        >Ulica i numer domu:</label
+                      >
+                      <input
+                        @blur="v$.newOrder.shippingAddress.street.$touch"
+                        type="text"
+                        class="form-control"
+                        id="shippingStreetInputB"
+                        v-model="newOrder.shippingAddress.street"
+                        :disabled="sameAddress"
+                        :class="{
+                          'error-input':
+                            v$.newOrder.shippingAddress.street.$error,
+                        }"
+                      />
+                      <div
+                        v-for="error of v$.newOrder.shippingAddress.street
+                          .$errors"
+                        :key="error.$uid"
+                        class="text-start mx-1"
+                      >
+                        <span class="error-msg">{{ error.$message }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-2 text-start">
+                      <label
+                        for="shippingApartmentNumberInputB"
+                        class="form-label"
+                        >Numer mieszkania:</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="shippingApartmentNumberInputB"
+                        v-model="newOrder.shippingAddress.apartmentNumber"
+                        :disabled="sameAddress"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-2 text-start">
+                      <label for="shippingPostalCodeInputB" class="form-label"
+                        >Kod pocztowy:</label
+                      >
+                      <input
+                        @blur="v$.newOrder.shippingAddress.postalCode.$touch"
+                        type="text"
+                        class="form-control"
+                        id="shippingPostalCodeInputB"
+                        v-model="newOrder.shippingAddress.postalCode"
+                        :disabled="sameAddress"
+                        :class="{
+                          'error-input':
+                            v$.newOrder.shippingAddress.postalCode.$error,
+                        }"
+                      />
+                      <div
+                        v-for="error of v$.newOrder.shippingAddress.postalCode
+                          .$errors"
+                        :key="error.$uid"
+                        class="text-start mx-1"
+                      >
+                        <span class="error-msg">{{ error.$message }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="mb-2 text-start">
+                      <label for="shippingCityInputB" class="form-label"
+                        >Miasto:</label
+                      >
+                      <input
+                        @blur="v$.newOrder.shippingAddress.city.$touch"
+                        type="text"
+                        class="form-control"
+                        id="shippingCityInputB"
+                        v-model="newOrder.shippingAddress.city"
+                        :disabled="sameAddress"
+                        :class="{
+                          'error-input':
+                            v$.newOrder.shippingAddress.city.$error,
+                        }"
+                      />
+                      <div
+                        v-for="error of v$.newOrder.shippingAddress.city
+                          .$errors"
+                        :key="error.$uid"
+                        class="text-start mx-1"
+                      >
+                        <span class="error-msg">{{ error.$message }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check mb-3 text-start">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="sameAddress"
+                        id="sameAddressInputB"
+                      />
+                      <label class="form-check-label" for="sameAddressInputB">
+                        Taki sam jak adres rozliczeniowy
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
                   <div class="mb-3 text-start">
                     <label for="commentInput" class="form-label">Uwagi:</label>
                     <textarea
@@ -237,9 +657,22 @@ export default {
       cart: null,
       deletedPosition: null,
       datesRange: [],
+      sameAddress: false,
+      version: "A",
       newOrder: {
-        address: "",
+        billingAddress: {
+          street: "",
+          apartmentNumber: "",
+          postalCode: "",
+          city: "",
+        },
         transport: false,
+        shippingAddress: {
+          street: "",
+          apartmentNumber: "",
+          postalCode: "",
+          city: "",
+        },
         comment: "",
       },
     };
@@ -247,11 +680,45 @@ export default {
   validations() {
     return {
       newOrder: {
-        address: {
-          required: helpers.withMessage(
-            "To pole nie może być puste.",
-            required
-          ),
+        billingAddress: {
+          street: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
+          postalCode: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
+          city: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
+        },
+        shippingAddress: {
+          street: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
+          postalCode: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
+          city: {
+            required: helpers.withMessage(
+              "To pole nie może być puste.",
+              required
+            ),
+          },
         },
       },
     };
@@ -363,6 +830,19 @@ export default {
       return this.cart.orderPositions.filter(
         (pos) => pos.quantity > pos.product.availableInDateRange
       );
+    },
+  },
+  watch: {
+    sameAddress(newValue) {
+      if (newValue === true) {
+        this.newOrder.shippingAddress.street =
+          this.newOrder.billingAddress.street;
+        this.newOrder.shippingAddress.apartmentNumber =
+          this.newOrder.billingAddress.apartmentNumber;
+        this.newOrder.shippingAddress.postalCode =
+          this.newOrder.billingAddress.postalCode;
+        this.newOrder.shippingAddress.city = this.newOrder.billingAddress.city;
+      }
     },
   },
 };

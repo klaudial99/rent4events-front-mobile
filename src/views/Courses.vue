@@ -148,8 +148,8 @@ export default {
       },
       filters: {
         sortByOptions: [
-          { label: "Data rosnąco", value: "Date asc" },
-          { label: "Data malejąco", value: "Date desc" },
+          { label: "Data rozpoczęcia najwcześniej", value: "Date asc" },
+          { label: "Data rozpoczęcia najpóźniej", value: "Date desc" },
         ],
       },
       navigation: {

@@ -60,7 +60,7 @@
               class="nav-link"
               :class="{ active: this.$route.name === 'CurrentCourse' }"
               :to="{ name: 'CurrentCourse' }"
-              >AKTUALNY KURS</router-link
+              >DZISIEJSZE KURSY</router-link
             >
           </li>
           <li class="nav-item pe-3">
